@@ -10,7 +10,7 @@ Actions are mapped to a method / function in the controller class.
 
 Also handles a Default Home Controller Scheme when used with only a website name and / or with just a page name.
 
---
+----
 
 RESTful based API path scheme, that **always** returns JSON: (API indicates use of the api controllers and JSON return type )  
 **Website name  / api / Controller / Action**
