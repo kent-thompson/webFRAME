@@ -1,6 +1,8 @@
 <?php
 namespace App\core;
 
+// ** FILE NOT USED - Refactored Out **
+
 class View {
 	protected $view_file;
 	protected $view_data;

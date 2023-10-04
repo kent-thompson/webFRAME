@@ -13,8 +13,8 @@ class ControllerBase {
     // JWT - put in config file or ENV
     protected $secretKey = 'e6311e81b59543c8aae070c54a28b801'; // TODO
 
-    public function __construct() {
-    }
+    // public function __construct() {
+    // }
 
     protected function AuthApi() {
         $headers = $this->getAuthorizationHeader();
@@ -58,16 +58,7 @@ class ControllerBase {
     }
 
     protected function AuthUI() {
-        // $token = '';
-        // $val = strtoupper($_SERVER['REQUEST_METHOD']);
-        // switch( $val ) {
-        //     case 'GET':
-        //         $token = $_GET['jwt'];
-        //         break;
-        //     case 'POST':
-        //         $token = $_POST['jwt'];
-        //         break;
-        // }
+
         $token = $_POST['jwt'];
         if (isset($token) && $token !== '') {
             try {
