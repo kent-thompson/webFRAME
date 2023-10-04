@@ -1,7 +1,8 @@
 #### Endpoint URL Path Scheme
 
 Server Rendered Pages URL End-Point Convention:  
-**Website name / Controller / Action**;  
+**Website name / Controller / Action**;
+
 Example:  
 kentthompson.org/user/getUser
 
