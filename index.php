@@ -21,9 +21,9 @@ const POST = 2;
 require_once CORE . 'Application.php';
 
 try {
-	new App\core\Application;
+    new App\core\Application;
 } catch(\Exception $e ) {
-	echo $e->getMessage(), __LINE__;
+    echo $e->getMessage(), __LINE__;
 } catch( \Error $er) {
-	echo $er->getMessage(), __LINE__;
+    echo $er->getMessage(), __LINE__;
 }
