@@ -1,0 +1,25 @@
+.rover {
+	color:black;
+	font-family:Arial, Helvetica, Verdana;
+	background-color:white;
+	text-align:justify;
+	padding: 4px 4px 4px 4px;
+}
+.just, .just TD, .just TH {
+	text-align:justify;
+	padding: 4px 4px 4px 4px;
+}
+.smtxt, .smtxt TD, .smtxt TH {
+	font-size: 8pt;
+}
+.medtxt, .medtxt TD, .medtxt TH  {
+	font-size: 10pt;
+}
+.lgtxt, .lgtxt TD, .lgtxt TH {
+	font-size:16pt;
+}
+.seodiv {
+	background-color:#F9FBFC; 
+	border:solid 1px #E0F8F7; 
+	padding: 4px 4px 4px 4px;   
+}

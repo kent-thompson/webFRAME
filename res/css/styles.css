@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+body {
+	font-family: sans-serif, Arial, Helvetica; 
+}
+
+/* cellpadding */
+th, td { padding: 5px; }
+
+/* cellspacing */
+table { border-collapse: separate; border-spacing: 5px; } /* cellspacing="5" */
+table { border-collapse: collapse; border-spacing: 0; }   /* cellspacing="0" */
+
+/* valign */
+th, td { vertical-align: top; }
+
+/* align (center) */
+table { 
+	margin: 0 auto;
+	background: cornsilk;
+	border: 1px solid green;
+}
+
+/* NEW from old website */
+a {
+    color: #00B7FF;
+  }
+  .state {
+      display: none;
+  }
+  .spborder {
+      border: 1px solid green;
+      margin:1em;
+      padding:1em;
+  }
+  .sp-bg-success {
+      background-color:rgb(205, 236, 223);
+  }
+  .greenchar {
+      color: green;
+  }
+  .btn-vertical-bmargin {
+      margin-bottom: 1em;
+  }
