@@ -1,19 +1,20 @@
-Endpoint URL path scheme: POST all parameters and arguments
+#### Endpoint URL Path Scheme
 
-Server Rendered URL End-Point WEB Pages
-website name / controller / action; (action is a method/function that can also represented by a pagename)
-example:
+Server Rendered URL End-Point WEB Pages  
+Website name / Controller / Action; (action is a method / function that is mapped to a method / fucntion in the controller class)
+example:  
 kentthompson.org/user/getUser
 
 Actions are mapped to a method / function in the controller class.
+
 ------
 
-* RESTful * based API path scheme, that ALWAYS returns JSON: (API indicates use of the api controllers and JSON return type )
-website name  / api / controller-name / action
-example:
+RESTful based API path scheme, that **always** returns JSON: (API indicates use of the api controllers and JSON return type )  
+Website name  / api / Controller / action  
+example:  
 kentthompson.org/api/user/getUser
 
-+*+ Also handles a Default Home Controller Scheme when used with only a website name and / or with just a page name.
+Also handles a Default Home Controller Scheme when used with only a website name and / or with just a page name.
 
 Features
 ------------
