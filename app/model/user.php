@@ -6,7 +6,7 @@ class User {
     private $db;
     private $pdo;
 
-	public function __construct() {
+    public function __construct() {
         try {
             $this->db = new \App\core\Database;
             $this->pdo = $this->db->connect();
@@ -15,7 +15,7 @@ class User {
         } catch( \Error $er) {
             echo $er->getMessage(), __LINE__,'<br>';
         }        
-	}
+    }
 
     public function createUser() {
         // TODO validate

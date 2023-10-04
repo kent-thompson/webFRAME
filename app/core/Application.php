@@ -115,5 +115,4 @@ class Application {
             echo 'ERROR: No '. $classObj->getName() . '\\' . $InstanceMethod . ' - Action Missing <br>';
         }
     }
-
 }

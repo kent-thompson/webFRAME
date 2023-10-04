@@ -10,7 +10,7 @@ use Firebase\JWT\Key;
 class User extends \App\core\ControllerBase {
     private $model;
 
-	public function __construct() {
+    public function __construct() {
         header("Content-Type: application/json");
         try {
             $this->model = new \App\model\User; // note the 'root' \ global call path
@@ -30,7 +30,7 @@ class User extends \App\core\ControllerBase {
         //     echo $er->getMessage(), __LINE__,'<br>';
         // }
         #endregion     
-	}
+    }
 
     public function getAllUsers() {
         parent::AuthApi();
