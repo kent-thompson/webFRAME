@@ -4,18 +4,18 @@ namespace App\core;
 $InstanceMethod;                    // The 'Oddity'
 
 class Application {
-	protected $controller;          // = 'home'; // using the controller name for simplicity
+    protected $controller;          // = 'home'; // using the controller name for simplicity
     protected $controllerPath;      // file path to file
-	// protected $action;           // = 'index';
-	protected $params = [];
+    // protected $action;           // = 'index';
+    protected $params = [];
             
     public function __construct() {
         global $InstanceMethod;
 
         $this->setReqMethod();
-		$this->parseURL();
+        $this->parseURL();
         $this->invoke();
-	}
+    }
 
     protected function setReqMethod() {
         // can add any number of other REST RM types like PUT, DELETE etc.
@@ -35,12 +35,12 @@ class Application {
         }
     }
 
-	protected function parseURL() {
+    protected function parseURL() {
         global $InstanceMethod;
 
         // controller and action paths and names are set
-		$request = trim($_SERVER['REQUEST_URI'], '/');
-		if( empty($request) ) {
+        $request = trim($_SERVER['REQUEST_URI'], '/');
+        if( empty($request) ) {
             // first time with no querystring; ex: website.com = Default
             $this->controllerPath = CONTROLLER . 'home.php';
             $this->controller = 'App\\controller\\home';
@@ -51,12 +51,12 @@ class Application {
             $urlPath = explode( '/', $url['path'] );
 
             // based upon index position, we know controller / action-page / params
-			if( count($urlPath) == 1 ) {
+            if( count($urlPath) == 1 ) {
                 $this->controllerPath = CONTROLLER . 'home.php';
-				$this->controller = 'App\\controller\\home';
-				// $this->action = $urlPath[0];
+                $this->controller = 'App\\controller\\home';
+                // $this->action = $urlPath[0];
                 $InstanceMethod = $urlPath[0];
-			} else if( count($urlPath) > 1 ) {
+            } else if( count($urlPath) > 1 ) {
                 if( $urlPath[0] == 'api' ) {
                     $this->controllerPath = API . $urlPath[1] . '.php'; // now current controller PATH
                     $this->controller = "App\\api\\" . $urlPath[1];     // now current controller CLASS
@@ -69,51 +69,51 @@ class Application {
                     $InstanceMethod = $urlPath[1];
                 }
             }
- 		}
-	}
+         }
+    }
 
     protected function invoke() {
         global $InstanceMethod;
 
-		// form of auto class loader from file path, controller class gets instantiated and action / function invoked
+        // form of auto class loader from file path, controller class gets instantiated and action / function invoked
         if( file_exists( $this->controllerPath ) ) {    
-			try {
+            try {
                 require_once $this->controllerPath;
 
-				$this->controller = new $this->controller;
-			} catch( \Exception $e ) {
-				echo $e->getMessage(), __LINE__,'<br>';
+                $this->controller = new $this->controller;
+            } catch( \Exception $e ) {
+                echo $e->getMessage(), __LINE__,'<br>';
                 return;
-			} catch( \Error $er) {
-				echo $er->getMessage(), __LINE__,'<br>';
+            } catch( \Error $er) {
+                echo $er->getMessage(), __LINE__,'<br>';
                 return;
-			}
-		} else {
+            }
+        } else {
             $GLOBALS['error_data'] = 'Controller ' . $this->controller;
             include_once VIEWS . '404.php';
             return;
-		}
+        }
 
         // function / "action" called
-		if( method_exists($this->controller, $InstanceMethod) ) {
-			try {
+        if( method_exists($this->controller, $InstanceMethod) ) {
+            try {
                 // invoke an instance method
                 //$instanceMethod = $this->action;
 
                 $this->controller->$InstanceMethod( $this->params );    // The MAGIC
-				// call_user_func_array( [$this->controller, $this->action], $this->params );
+                // call_user_func_array( [$this->controller, $this->action], $this->params );
                 
-			} catch( \Exception $e ) {
-				echo $e->getMessage(), __LINE__;
+            } catch( \Exception $e ) {
+                echo $e->getMessage(), __LINE__;
                 return;
-			} catch( \Error $er ) {
-				echo $er->getMessage(), __LINE__;
+            } catch( \Error $er ) {
+                echo $er->getMessage(), __LINE__;
                 return;
-			}
-		} else {
+            }
+        } else {
             $classObj = new \ReflectionClass( $this->controller );
-			echo 'ERROR: No '. $classObj->getName() . '\\' . $InstanceMethod . ' - Action Missing <br>';
-		}
+            echo 'ERROR: No '. $classObj->getName() . '\\' . $InstanceMethod . ' - Action Missing <br>';
+        }
     }
 
 }
