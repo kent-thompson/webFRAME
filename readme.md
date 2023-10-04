@@ -1,8 +1,8 @@
 #### Endpoint URL Path Scheme
 
 Server Rendered Pages URL End-Point Convention:  
-Website name / Controller / Action;
-Example:
+**Website name / Controller / Action**;  
+Example:  
 kentthompson.org/user/getUser
 
 Actions are mapped to a method / function in the controller class.  
