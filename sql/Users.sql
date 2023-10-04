@@ -1,3 +1,5 @@
+-- NOTE: THis is jsut a file to test various queries. Thanks.
+
  SELECT * FROM `test-db`.Users;
 
 -- TRUNCATE TABLE Users;
