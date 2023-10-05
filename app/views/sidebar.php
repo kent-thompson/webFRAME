@@ -1,5 +1,5 @@
 <div id="lone" class="col-left">
-	<div id="smenu" class="sidebar stickybox shadow">
+    <div id="smenu" class="sidebar stickybox shadow">
         <div class="menuitem" onclick=postIt('indexAuth');>Custom Software</div>
         <div class="menuitem" onclick=postIt('pagetwo');>Computer Languages</div>
         <div class="menuitem" onclick=postIt('pagethree');>General Systems</div>
@@ -13,11 +13,11 @@
         <div class="menuitem" onclick="location.href='contact'">Contact</div>
         <div class="menuitem" onclick=postIt('userList');>User List</div>
         <div class="menuitem" onclick=logout();>Logout</div>
-	</div>
-	<div id="skeybox" class="stickybox sidebox smlrtxt">
-		Success in computer science comes from striving to be a skilled student of technology and always continue improving. Then working hard to become an expert and teach others to do the same. It can be a way to intellectually grow, prosper and forever stay energized, relevant, enthusiastic and prosperous.
-	</div>
-	<img id="cpp_logo" src="../res/img/c.svg" width="200" height="200" alt="c++ logo" class="stickybox sidelogo">
+    </div>
+    <div id="skeybox" class="stickybox sidebox smlrtxt">
+        Success in computer science comes from striving to be a skilled student of technology and always continue improving. Then working hard to become an expert and teach others to do the same. It can be a way to intellectually grow, prosper and forever stay energized, relevant, enthusiastic and prosperous.
+    </div>
+    <img id="cpp_logo" src="../res/img/c.svg" width="200" height="200" alt="c++ logo" class="stickybox sidelogo">
 </div>
 <script>
 function postIt( purl ) {

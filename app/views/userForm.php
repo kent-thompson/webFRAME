@@ -1,6 +1,6 @@
     
 <div class="col-center">
-    <div class="top-txt"><b>User Form</b></div><br>
+    <div class="top-txt"><b>User Form</b><br>
     <div id="maintext">
         <form id="uform" action="/user/updateUser" method="POST">
             <input type="hidden" id="jwt" name="jwt">            

@@ -1,24 +1,24 @@
 <div class="col-center">
     <!-- DATA Table -->
-	<h5>User List</h5>
-	<button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="addUser()" >Add User</button>
+    <h5>User List</h5>
+    <button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="addUser()" >Add User</button>
     <button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="$('#backform').submit()" >Back</button><br><br>
-	<table id="usertable" class="table table-bordered table-hover">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>UserName</th>
+    <table id="usertable" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>UserName</th>
                 <th>FirstName</th>
-				<th>LastName</th>
-				<th style="min-width: 8em">Birthday</th>
+                <th>LastName</th>
+                <th style="min-width: 8em">Birthday</th>
                 <th>Email</th>
-				<th>Password</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
-	<button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="addUser()" >Add User</button>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="addUser()" >Add User</button>
     <button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="$('#backform').submit()" >Back</button>
     <form id='backform' action="/home/indexAuth" method="POST"><input type="hidden" id="ejwt" name="jwt"></form>
 
@@ -107,24 +107,24 @@ var eAction = Object.freeze({ // enum
 
 $(document).ready(function() {
     gDtable = $('#usertable').DataTable( {
-		ajax: {
+        ajax: {
             type:'GET',
             //dataType:'json',
-			url: gBasepath + '/api/user/getAllUsers',
-			dataSrc: "",
+            url: gBasepath + '/api/user/getAllUsers',
+            dataSrc: "",
             headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')}
-		},
-		"columns": [
+        },
+        "columns": [
             { "data": "UserID" },            
-			{ "data": "UserName" },
+            { "data": "UserName" },
             { "data": "FirstName" },
-			{ "data": "LastName" },
-			{ "data": "Birthday" },
+            { "data": "LastName" },
+            { "data": "Birthday" },
             { "data": "Email" },
             { "data": "Password" }
-		],
-		"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-		"pageLength": 25
+        ],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": 25
     });
 });
 
@@ -139,13 +139,13 @@ addUser = () => {   // :(
     $('#myModal').modal({
         backdrop: 'static',
         keyboard: false
-	});    
+    });    
 }
 
 // selection & update / edit
 $("#usertable").on("dblclick", "tr", function(e) {
     gDBAction = eAction.EDIT;
-	gID = $(this).children(':first').html();
+    gID = $(this).children(':first').html();
     $('#psw').attr('readonly', true);
     $('#txtAction').text('Edit User')
     getUserData( gID );
@@ -153,7 +153,7 @@ $("#usertable").on("dblclick", "tr", function(e) {
     $('#myModal').modal({
         backdrop: 'static',
         keyboard: false
-	});
+    });
 });
 
 
@@ -200,10 +200,10 @@ function sendAjax( action ) {	                // handles add, update, delete
     }
     
     $.ajax({
-		url: apiPath,
-		type:'POST',
+        url: apiPath,
+        type:'POST',
         dataType:'json',
-		headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')},
+        headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')},
         data: ddata
     })
     .done( function( data, textStatus, jQxhr ) {
@@ -219,37 +219,37 @@ function sendAjax( action ) {	                // handles add, update, delete
 }
 
 function getUserData( id ) {
-	$.ajax({
-		url: gBasepath + '/api/user/getUser', // byID
+    $.ajax({
+        url: gBasepath + '/api/user/getUser', // byID
         dataType:'json',
-		type:'post',
+        type:'post',
         headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')},
         data: { 'docid': id }
-	})
+    })
     .done( function( data, textStatus, jQxhr ) {
         $('#docid').val(data.UserID);
-		$('#uname').val(data.UserName);
-		$('#fname').val(data.FirstName);
-		$('#lname').val(data.LastName);
-		$('#email').val(data.Email);
-		$('#bdate').val(data.Birthday);
-		$('#psw').val(data.Password);
+        $('#uname').val(data.UserName);
+        $('#fname').val(data.FirstName);
+        $('#lname').val(data.LastName);
+        $('#email').val(data.Email);
+        $('#bdate').val(data.Birthday);
+        $('#psw').val(data.Password);
     })
     .fail( function( jqXhr, textStatus, errorThrown ) {
         console.log( errorThrown );
         alert( textStatus + ", " + errorThrown )
-	});
+    });
 }
 /*
 
 function deleteMe() {
-	$.ajax({
-		url: gBasepath + '/api/deleteuserbyid',
+    $.ajax({
+        url: gBasepath + '/api/deleteuserbyid',
         dataType:'json',
-		type:'post',
-		headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')},
+        type:'post',
+        headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')},
         data: { 'docid':gID }    
-	})
+    })
     .done( function( data, textStatus, jQxhr ) {
         if( textStatus == 'success' ) {
             $('#myModal').modal('hide');
@@ -259,7 +259,7 @@ function deleteMe() {
     .fail( function( jqXhr, textStatus, errorThrown ) {
         console.log( errorThrown );
         alert( textStatus + ", " + errorThrown )
-	});
+    });
 }
 */
 </script>
