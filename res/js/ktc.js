@@ -16,7 +16,7 @@ $(window).on("load", function(e){
 		//$("#rev-notice").delay(10000).fadeOut(1000, function() {
 			//$("#rev-notice").css('display','none');
 		//});
-		sessionStorage.ran = "true";
+		// sessionStorage.ran = "true";
 	}
 	var w = $(window).outerWidth();
 	if( $(window).width() > 481 ) {

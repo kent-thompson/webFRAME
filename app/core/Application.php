@@ -1,7 +1,7 @@
 <?php
 namespace App\core;
 
-$InstanceMethod;                    // The 'Oddity'
+$InstanceMethod;                    // The 'Oddity' look forward to explaining :)
 
 class Application {
     protected $controller;          // = 'home'; // using the controller name for simplicity
@@ -10,8 +10,7 @@ class Application {
     protected $params = [];
             
     public function __construct() {
-        global $InstanceMethod;
-
+        
         $this->setReqMethod();
         $this->parseURL();
         $this->invoke();
@@ -19,10 +18,10 @@ class Application {
 
     protected function setReqMethod() {
         // can add any number of other REST RM types like PUT, DELETE etc.
-        $val = strtoupper($_SERVER['REQUEST_METHOD']);
+        $val = strtoupper( $_SERVER['REQUEST_METHOD'] );
         switch( $val ) {
             case 'GET':
-                $this->params[0] = GET;    
+                $this->params[0] = GET;
                 break;
             case 'POST':
                 if( !empty($_POST) ) { 
@@ -60,12 +59,12 @@ class Application {
                 if( $urlPath[0] == 'api' ) {
                     $this->controllerPath = API . $urlPath[1] . '.php'; // now current controller PATH
                     $this->controller = "App\\api\\" . $urlPath[1];     // now current controller CLASS
-                    // $this->action = $urlPath[2];                     // function
+                    // $this->action = $urlPath[2];                     // method / function
                     $InstanceMethod = $urlPath[2];
                 } else {
                     $this->controllerPath = CONTROLLER . $urlPath[0] . '.php';  // now current controller
-                    $this->controller = "App\\controller\\" . $urlPath[0];
-                    // $this->action = $urlPath[1];                             // function
+                    $this->controller = "App\\controller\\" . $urlPath[0];      // now current controller CLASS
+                    // $this->action = $urlPath[1];                             // method / function
                     $InstanceMethod = $urlPath[1];
                 }
             }
@@ -76,11 +75,11 @@ class Application {
         global $InstanceMethod;
 
         // form of auto class loader from file path, controller class gets instantiated and action / function invoked
-        if( file_exists( $this->controllerPath ) ) {    
+        if( file_exists($this->controllerPath) ) {    
             try {
                 require_once $this->controllerPath;
 
-                $this->controller = new $this->controller;
+                $this->controller = new $this->controller( $this->params );
             } catch( \Exception $e ) {
                 echo $e->getMessage(), __LINE__,'<br>';
                 return;
@@ -98,7 +97,7 @@ class Application {
         if( method_exists($this->controller, $InstanceMethod) ) {
             try {
                 // invoke an instance method
-                //$instanceMethod = $this->action;
+                //$instanceMethod = $this->action; ugh...
 
                 $this->controller->$InstanceMethod( $this->params );    // The MAGIC
                 // call_user_func_array( [$this->controller, $this->action], $this->params );

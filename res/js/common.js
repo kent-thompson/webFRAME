@@ -7,14 +7,6 @@ function gGetBasepath() {
 	}
 }
 
-// window.addEventListener('beforeunload', (e) => {
-//     console.log('User clicked back button');
-//     //confirm('Trying to go back');
-//     e.preventDefault();
-//     window.history.back();
-//     return true;
-// });
-
 function gClearForm(ele) {
     $(ele).find(':input').each(function() {
         switch(this.type) {

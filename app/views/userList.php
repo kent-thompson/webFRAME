@@ -55,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <label for="bdate"><b>Birthdate</b></label><br/>
-                            <input type="date" class="form-control" id='bdate' name="bdate" value='' required>
+                            <input type="date" class="form-control" id='bdate' name="birthday" value='' required>
                         </div>
                         <div class="form-group">	
                             <label for="email"><b>Email</b></label><br/>
@@ -70,7 +70,6 @@
                         <button type="button" class="btn btn-primary" onclick="$('#myModal').modal('hide');">Cancel</button>
                         <button type="button" class="btn btn-primary float-md-right" onclick="$('#msgBox').modal('show');">Delete</button>
                     </form>
-                    <p>
                 </div>
             </div>
         </div>
@@ -93,6 +92,7 @@
         </div>
     </div>
 </div>
+<div><p></p></div>
 <script>
 var gBasepath = gGetBasepath();
 var gDTable = null;
@@ -141,6 +141,11 @@ addUser = () => {   // :(
         keyboard: false
     });    
 }
+
+// $("#usertable").on( 'done', function () {
+//     //console.log( 'Redraw occurred at: '+new Date().getTime() );
+//     $("#usertable").append('<p>');
+// } );
 
 // selection & update / edit
 $("#usertable").on("dblclick", "tr", function(e) {

@@ -1,4 +1,3 @@
-<!-- <div class="container-fluid text-center"> -->
 <div class="col-center">    
     <div class="spborder">
     <h5>KTC Login</h5>
@@ -28,7 +27,6 @@ function auth() {
     var gBasepath = gGetBasepath();
     $.ajax({
           url: gBasepath + '/api/user/login',
-        //crossDomain: true,
         type:'POST',
         data: { 'uname':$('#uname').val(), 'psw':$('#psw').val() }
     })

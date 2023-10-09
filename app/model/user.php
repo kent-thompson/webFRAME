@@ -17,24 +17,18 @@ class User {
         }        
     }
 
-    public function createUser() {
-        // TODO validate
-        $uname = trim($_POST['uname']);
-        $fname = trim($_POST['fname']);
-        $lname = trim($_POST['lname']);
-        $email = trim($_POST['email']);
-        $bdate = trim($_POST['bdate']);
-        $pwd = trim($_POST['psw']);
+    public function createUser( &$user ) {
 
-        $hash = password_hash( $pwd, PASSWORD_DEFAULT );
+        $user->password = password_hash( $user->password, PASSWORD_DEFAULT );
 
-        $sql = "INSERT INTO Users ( UserName, FirstName, LastName, Birthday, Email, Password ) VALUES( '$uname', '$fname', '$lname', '$bdate', '$email', '$hash' )";
+        $sql = "INSERT INTO Users ( UserName, FirstName, LastName, Birthday, Email, Password ) VALUES( '$user->uname', '$user->firstName', '$user->lastName', '$user->birthday', '$user->email', '$user->password' )";
         $ret = $this->pdo->exec( $sql );
         return $ret;
     }
 
     public function getUserByID( $id, &$data ) {
         // $sql = "SELECT UserID, UserName, FirstName, LastName, Email, DATE_FORMAT(Birthday, '%m-%d-%Y') As Birthday, Password FROM Users where UserID = $id;";
+        
         $sql = "SELECT UserID, UserName, FirstName, LastName, Email, Birthday, Password FROM Users where UserID = $id;";
         $qry = $this->pdo->query( $sql );
         $data = $qry->fetch();
@@ -52,7 +46,7 @@ class User {
 
     public function updateUserByID( $id ) {
         // $id = $_POST['docid'];
-        $uname = trim($_POST['uname']);
+        $uname = trim($_POST['uname']); // TODO: validate
         $fname = trim($_POST['fname']);
         $lname = trim($_POST['lname']);
         $email = trim($_POST['email']);
@@ -74,6 +68,7 @@ class User {
 
     public function getAllUsers( &$data ) {
         //$sql = "SELECT UserID, UserName, FirstName, LastName, Email, DATE_FORMAT(Birthday, '%m-%d-%Y') As Birthday, Password FROM Users";
+
         $sql = "SELECT UserID, UserName, FirstName, LastName, Email, Birthday, Password FROM Users";
         $qry = $this->pdo->query( $sql );
         $data = $qry->fetchAll();

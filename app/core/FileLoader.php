@@ -1,7 +1,7 @@
 <?php
 namespace App\core;
 
-// ** FILE NOT USED - Refactored Out **
+// ** FILE CURRENTLY NOT USED - Refactored Out **
 
 
 spl_autoload_register('App\core\FileLoader');

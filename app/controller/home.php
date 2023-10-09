@@ -4,8 +4,9 @@ require_once CORE . 'ControllerBase.php';
 
 // CONTROLLER
 class Home extends \App\core\ControllerBase {
-    public function __construct() {
-        parent::__construct();
+
+    public function __construct( $reqInfo ) {
+        parent::__construct( $reqInfo[0] ); // $reqInfo[0] is reqType
     }
 
     public function index() {
@@ -46,7 +47,7 @@ class Home extends \App\core\ControllerBase {
         include_once VIEWS . 'top_content.php';
         include_once VIEWS . 'sidebar.php';
         include_once VIEWS . 'pagetwo.php';
-        include_once VIEWS . 'footer.php';        
+        include_once VIEWS . 'footer.php';
      }
 
     public function pagethree() {
@@ -134,19 +135,3 @@ class Home extends \App\core\ControllerBase {
         require_once VIEWS . 'footer.php';
     }
 }
-
-    // public function index() {
-    //     if( isset($_SERVER['HTTPS'] ) ) {
-    //         $s = 'Location: https://' . $_SERVER['HTTP_HOST'];
-    //     } else {
-    //         $s = 'Location: http://' . $_SERVER['HTTP_HOST'];
-    //     }
-
-    //     if( parent::getIsAuth() ) {
-    // 	    //$this->indexAuth();
-    //         $h = '/indexAuth';
-    //     } else {
-    //         $h = '/indexNonAuth';
-    //     }
-    //     header( $s . $h, true, 303 );
-    // }

@@ -3,7 +3,7 @@ namespace App\core;
 require_once 'vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-// NOTE:
+// NOTE: this left as a programmatic reminder
 // $jwt = JWT::encode($payload, $this->secretKey, 'HS256');
 // $decoded = JWT::decode($jwt, new Key($this->secretKey, 'HS256'));
 
@@ -12,16 +12,17 @@ class ControllerBase {
     protected $mPayload;
     // JWT - put in config file or ENV
     protected $secretKey = 'e6311e81b59543c8aae070c54a28b801'; // TODO
+    protected $reqType;
 
-    // public function __construct() {
-    // }
+    public function __construct( $reqtype_ ) {
+        $this->reqType = $reqtype_;
+    }
 
     protected function AuthApi() {
         $headers = $this->getAuthorizationHeader();
         // HEADER: Get the access token from the header
         if (!empty($headers)) {
             if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-                //$m = $matches[1];
                 try {    
                     $this->mPayload = JWT::decode($matches[1], new Key($this->secretKey, 'HS256'));
                 } catch( LogicException $e ) {
@@ -34,8 +35,10 @@ class ControllerBase {
                     throw new \Exception( $s );
                 }
                 $this->mIsAuth = true;
+                return true;
             }
         }
+        throw new \Exception('NOT AUTHORIZED - Please Login '); 
     }
 
     protected function getAuthorizationHeader(){
@@ -58,8 +61,15 @@ class ControllerBase {
     }
 
     protected function AuthUI() {
+        switch( $this->reqType ) {
+            case GET:
+                $token = $_GET['jwt'];
+                break;
+            case POST:
+                $token = $_POST['jwt'];
+                break;
+        }
 
-        $token = $_POST['jwt'];
         if (isset($token) && $token !== '') {
             try {
                 $this->mPayload = JWT::decode($token, new Key($this->secretKey, 'HS256'));
@@ -89,7 +99,7 @@ class ControllerBase {
     protected function setPayload( &$data) {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=UTF-8");
-        header("Access-Control-Allow-Methods: POST");
+        header("Access-Control-Allow-Methods: GET, POST");
         header("Access-Control-Max-Age: 3600");
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With");
 

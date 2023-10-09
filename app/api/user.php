@@ -2,6 +2,8 @@
 namespace App\api;
 require_once CORE . 'ControllerBase.php';
 require_once MODEL . 'user.php';
+require_once SERVICE . 'user.php';
+require_once DATABASE . 'userEntity.php';
 
 require_once 'vendor/autoload.php';
 use Firebase\JWT\JWT;
@@ -9,8 +11,11 @@ use Firebase\JWT\Key;
 
 class User extends \App\core\ControllerBase {
     private $model;
+    private $userService;
 
-    public function __construct() {
+    public function __construct( $reqInfo ) {
+        parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
+
         header("Content-Type: application/json");
         try {
             $this->model = new \App\model\User; // note the 'root' \ global call path
@@ -21,45 +26,43 @@ class User extends \App\core\ControllerBase {
             echo $er->getMessage(), __LINE__,'<br>';
             return;
         }
-        #region \App\service\User
-        // try {
-        //     $this->userService = new \App\service\User;
-        // } catch( \Exception $e ) {
-        //     echo $e->getMessage(), __LINE__,'<br>';
-        // } catch( \Error $er) {
-        //     echo $er->getMessage(), __LINE__,'<br>';
-        // }
-        #endregion     
+
+        try {
+            $this->userService = new \App\service\User( $this->reqType );
+        } catch( \Exception $e ) {
+            echo $e->getMessage(), __LINE__,'<br>';
+        } catch( \Error $er) {
+            echo $er->getMessage(), __LINE__,'<br>';
+        }
     }
 
     public function getAllUsers() {
         parent::AuthApi();
 
         $data = [];
-        $this->model->getAllUsers( $data );
+        $this->model->getAllUsers( $data );     // $data passed as an OUT param
         echo json_encode( $data );
     }
 
     public function getUser( $reqInfo ) {
         parent::AuthApi();
-        if( $reqInfo[0] == POST ) {
 
+        if( $this->reqType == POST ) {
             $id = $_POST['docid'];
             $data = [];
             $this->model->getUserByID( $id, $data );
             echo json_encode( $data );
-
-            //$data = [ 'color' => 'red', 'style' => 'obtuse'];
-            //$this->setPayload( $data );
         }
     }
 
     public function addUser( $reqInfo ) {
         parent::AuthApi();
 
-        // TODO use service layer to validate request
-        if( $reqInfo[0] == POST ) {
-            $ret = $this->model->createUser();
+        if( $this->reqType == POST ) {
+            $user = new \database\userEntity;
+
+            $rslt = $this->userService->validate( $user );
+            $ret = $this->model->createUser( $user );
             echo json_encode( $ret );
         }
     }
@@ -67,10 +70,9 @@ class User extends \App\core\ControllerBase {
     public function updateUser( $reqInfo ) {
         parent::AuthApi();
         
-        if( $reqInfo[0] == POST ) {
+        if( $this->reqType == POST ) {
             $id = $_POST['docid'];
-            //$fname = $_POST['fname'];
-            //$lname = $_POST['lname'];
+
             $ret = $this->model->updateUserByID( $id );
             echo json_encode( $ret );
         }
@@ -78,32 +80,30 @@ class User extends \App\core\ControllerBase {
 
     public function deleteUserById( $reqInfo ) {
         parent::AuthApi();
-        if( $reqInfo[0] == POST ) {
+        if( $this->reqType == POST ) {
             $id = $_POST['docid'];
 
-            // $data = [];
             $rslt = $this->model->deleteUserByID( $id );
             echo json_encode( $rslt );
         }
     }
 
-    public function login( $reqInfo ) {
-        if( $reqInfo[0] == POST ) {
+    public function login() {
+        if( $this->reqType == POST ) {
             $uname = trim($_POST['uname']);
             $pwd = trim($_POST['psw']);
 
             $data = [];
-            $this->model->getUserByName( $uname, $data );  // $data passed as an OUT param            
+            $this->model->getUserByName( $uname, $data );       // $data passed as an OUT param
 
-            // compare passwords
-            $rslt = password_verify( $pwd, $data['Password'] );
+            $rslt = password_verify( $pwd, $data['Password'] ); // compare passwords
             if( $rslt == false ) {
                 $GLOBALS['error_data'] = 'Incorrect Login Data';
                 include_once VIEWS . '404.php';
                 return;
             }
 
-            $payload = [
+            $payload = [        // JWT
                 'iat' => time(),
                 'exp' => time() + 60*60*4, // + 4 hours
                 'role' => 'user',
@@ -126,3 +126,22 @@ class User extends \App\core\ControllerBase {
         }
     }
 }
+
+    // May be deprecated... 
+    // public function validate() {
+    //     parent::AuthApi();
+    //     if( $this->reqType == GET ) {
+    //         $url = $_GET['data'];
+    //         if( ! isset($url) ) {
+    //             return false;
+    //         }
+
+    //         $s = 'Location: ' . $url;
+    //         header( $s );
+    //         if( $this->mIsAuth == true ) {
+    //             echo '{true}';
+    //         } else {
+    //             echo '{false}';
+    //         }
+    //     }
+    // }
