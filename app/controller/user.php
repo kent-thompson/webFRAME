@@ -16,8 +16,7 @@ class User extends \App\core\ControllerBase {
     private $reqType;
 
 	public function __construct( $reqInfo ) {
-        $this->reqType = $reqInfo[0];
-        parent::__construct( $this->reqType );     // $reqInfo[0] is reqType
+        parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
 
         try {
             $this->model = new \App\model\User; // note the 'root' \ global call path
@@ -38,7 +37,7 @@ class User extends \App\core\ControllerBase {
 	}
 
     public function getAllUsers( $reqInfo ) {
-        parent::AuthApi();
+        parent::AuthUI();
 
         $data = [];
         $this->model->getAllUsers( $data );
@@ -68,7 +67,7 @@ class User extends \App\core\ControllerBase {
 	}
 
     public function updateUser( $reqInfo ) {
-        parent::AuthApi();
+        parent::AuthUI();
         if( $this->reqType == POST ) {
 
             $fname = $_POST['fname'];
