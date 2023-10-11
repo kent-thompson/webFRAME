@@ -32,7 +32,7 @@ Supports a Default Home Controller Scheme when used with only a website name and
 
 ----
 
-RESTful based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
+RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
 **Website name  / api / Controller / Action**
 
 Example:  
