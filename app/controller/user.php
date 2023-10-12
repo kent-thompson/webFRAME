@@ -15,7 +15,7 @@ class User extends \App\core\ControllerBase {
     private $userService;
     private $reqType;
 
-	public function __construct( $reqInfo ) {
+    public function __construct( $reqInfo ) {
         parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
 
         try {
@@ -48,7 +48,7 @@ class User extends \App\core\ControllerBase {
         // }
     }
 
-	public function getUserForm( $reqInfo ) {
+    public function getUserForm( $reqInfo ) {
         require_once VIEWS . 'head_begin.php';
         require_once VIEWS . 'top_content.php';
         require_once VIEWS . 'sidebar.php';

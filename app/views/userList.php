@@ -219,7 +219,9 @@ function sendAjax( action ) {	                // handles add, update, delete
     })
     .fail( function( jqXhr, textStatus, errorThrown ) {
             console.log(jqXhr, textStatus, errorThrown);
-            alert( textStatus + ", " + errorThrown )
+            // var text = jqXhr.responseText; 
+            var errors = Object.entries( jqXhr.responseJSON );
+            // alert( textStatus + ", " + errorThrown )
     });
 }
 
