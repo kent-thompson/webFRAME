@@ -64,12 +64,8 @@ class User extends \App\core\ControllerBase {
             $errors = [];
             $rslt = $this->userService->validate( $user, $errors );
             if( $rslt == false ) {
-                //$response = [];
                 http_response_code(500);
-                //$response['Validation_Errors'] = true;
-                //$response = $errors; 
                 echo json_encode( $errors );
-
                 return;
             }
             $ret = $this->model->createUser( $user );

@@ -83,7 +83,7 @@
                     <h4 id="magBoxTitle" class="modal-title">Delete User</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button><br>
                 </div>
-                <div class="modal-body">Delete This User?</div>
+                <div id=popup-msg class="modal-body">Delete This User?</div>
                 <div class="modal-footer">
                     <button type="button" id="btnOk"  class="btn btn-success" onclick="sendAjax( eAction.DELETE );">OK</button>  
                     <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
@@ -219,8 +219,17 @@ function sendAjax( action ) {	                // handles add, update, delete
     })
     .fail( function( jqXhr, textStatus, errorThrown ) {
             console.log(jqXhr, textStatus, errorThrown);
-            // var text = jqXhr.responseText; 
-            var errors = Object.entries( jqXhr.responseJSON );
+            //var errors = Object.entries( jqXhr.responseJSON );
+            $('#myModal').modal('hide');
+
+            $('#btnOk').hide();
+            $('#magBoxTitle').text('Validation Errors');
+            $('#popup-msg').text( JSON.stringify(jqXhr.responseJSON) );
+            $('#msgBox').modal('show');
+
+            // for( var key in jqXhr.responseJSON ) {
+            //     console.log(`${key} -> ${jqXhr.responseJSON[key]}`)
+            // }
             // alert( textStatus + ", " + errorThrown )
     });
 }

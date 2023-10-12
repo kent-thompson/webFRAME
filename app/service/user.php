@@ -55,9 +55,9 @@ class User {
             if (empty($lname)) {
                 $errors['lname'] = 'Please enter a last name';
             } else if (!preg_match('/^[a-zA-Z0-9]+$/', $lname)) {
-                $errors['lname'] = 'First name must contain only letters and numbers';
+                $errors['lname'] = 'Last name must contain only letters and numbers';
             } else if (strlen($lname) < 6 || strlen($lname) > 20) {
-                $errors['lname'] = 'First name must be between 6 and 20 characters long';
+                $errors['lname'] = 'Last name must be between 6 and 20 characters long';
             }
             $user->lastName = $lname;
         }
@@ -90,9 +90,9 @@ class User {
         // passwword
         if( isset($_POST['psw']) ) {
             $pwd = trim($_POST['psw']);
-            if (empty($password)) {
+            if (empty($pwd)) {
                 $errors['psw'] = 'Please enter a Password';
-            } else if ( ! ctype_alnum( $password) ) {
+            } else if ( ! ctype_alnum( $pwd) ) {
                 $errors['psw'] = 'Somehow there are Illegal Characters in the Password, Please Use Different Password';
             } else if (strlen($pwd) < 6 || strlen($pwd) > 20) {
                 $errors['psw'] = 'Password must be between 6 and 20 characters long';
