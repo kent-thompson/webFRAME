@@ -10,7 +10,6 @@ class Application {
     protected $params = [];
             
     public function __construct() {
-        
         $this->setReqMethod();
         $this->parseURL();
         $this->invoke();
@@ -40,7 +39,7 @@ class Application {
         // controller and action paths and names are set
         $request = trim($_SERVER['REQUEST_URI'], '/');
         if( empty($request) ) {
-            // first time with no querystring; ex: website.com = Default
+            // first time with no querystring; ex: website.com
             $this->controllerPath = CONTROLLER . 'home.php';
             $this->controller = 'App\\controller\\home';
             // $this->action = 'index';
@@ -97,11 +96,11 @@ class Application {
         if( method_exists($this->controller, $InstanceMethod) ) {
             try {
                 // invoke an instance method
-                //$instanceMethod = $this->action; ugh...
+                // call_user_func_array( [$this->controller, $this->action], $this->params );
+                // $instanceMethod = $this->action; ugh...
 
                 $this->controller->$InstanceMethod( $this->params );    // The MAGIC
-                // call_user_func_array( [$this->controller, $this->action], $this->params );
-                
+
             } catch( \Exception $e ) {
                 echo $e->getMessage(), __LINE__;
                 return;

@@ -1,7 +1,7 @@
 <div id="lone" class="col-left">
     <div id="smenu" class="sidebar stickybox shadow">
         <div class="menuitem" onclick=getIt('indexAuth');>Custom Software</div>
-        <div class="menuitem" onclick=getIt('pagetwo'); return false;>Computer Languages</div>
+        <div class="menuitem" onclick=getIt('pagetwo');>Computer Languages</div>
         <div class="menuitem" onclick=getIt('pagethree');>General Systems</div>
         <div class="menuitem" onclick=getIt('pagefour');>Microsoft Systems</div>
         <div class="menuitem" onclick=getIt('pagefive');>Databases</div>
@@ -26,34 +26,15 @@ function getIt( purl ) {
         alert( 'NO TOKEN' );
         return false;
     }
-    // $.ajax({
-    //     type:'GET',
-    //     url: basepath + '/api/user/validate?data=' + basepath + '/' + purl,
-
-    //     //headers: {'Access-Control-Allow-Headers', '*'},   //for allow any headers, insecure
-    //     // headers: {'Access-Control-Allow-Methods', 'GET, POST'} //method allowed
-    //     //headers: { 'Access-Control-Allow-Origin': '*',
-    //             //'Access-Control-Allow-Headers': '*',
-    //             // 'Access-Control-Allow-Methods': 'GET, POST',
-    //     headers: {'Authorization': 'Bearer '+ sessionStorage.getItem('ktc_token')},
-    //     dataType: 'text',
-    //     complete : function(response) {
-    //         $.ajax({
-    //             type:'POST',
-    //             url: basepath + '/' + purl,
-    //             headers: {'Authorization': 'Bearer '+ sessionStorage.getItem('ktc_token')}
-    //         });
-    //     }
-    // });
 
     var form = document.createElement('form');
     form.setAttribute('method', 'GET');
     form.setAttribute('action', purl);
-    var hFld = document.createElement('input');
-    hFld.setAttribute('type', 'hidden');
-    hFld.setAttribute('name', 'jwt');
-    hFld.setAttribute('value', sessionStorage.getItem('ktc_token'));
-    form.appendChild(hFld);
+    var hfld = document.createElement('input');
+    hfld.setAttribute('type', 'hidden');
+    hfld.setAttribute('name', 'jwt');
+    hfld.setAttribute('value', sessionStorage.getItem('ktc_token'));
+    form.appendChild( hfld );
     document.body.appendChild(form);
     form.submit();
     // another example: document.getElementById("myForm").action = "/action_page.php";

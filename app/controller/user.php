@@ -9,11 +9,11 @@ require_once 'vendor/autoload.php';
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-// SERVER SIDE RENDER
+// SERVER SIDE RENDER 
+// NOTE: When using "mini-SPAs" and Ajax / Json based API these don't make much sense anymore. That's why they are not developed. But COULD be if needed.
 class User extends \App\core\ControllerBase {
     private $model;
     private $userService;
-    private $reqType;
 
     public function __construct( $reqInfo ) {
         parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
