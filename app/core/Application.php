@@ -37,7 +37,7 @@ class Application {
         global $InstanceMethod;
 
         // controller and action paths and names are set
-        $request = trim($_SERVER['REQUEST_URI'], '/');
+        $request = trim( $_SERVER['REQUEST_URI'], '/' );
         if( empty($request) ) {
             // first time with no querystring; ex: website.com
             $this->controllerPath = CONTROLLER . 'home.php';
@@ -96,7 +96,7 @@ class Application {
         if( method_exists($this->controller, $InstanceMethod) ) {
             try {
                 // invoke an instance method
-                // call_user_func_array( [$this->controller, $this->action], $this->params );
+                // call_user_func_array( [$this->controller, $this->action], $this->params ); DO NOT become Emotionally invested in your code. This allows discussion and rapid change.
                 // $instanceMethod = $this->action; ugh...
 
                 $this->controller->$InstanceMethod( $this->params );    // The MAGIC

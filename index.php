@@ -22,8 +22,8 @@ require_once CORE . 'Application.php';
 
 try {
     new App\core\Application;
-} catch(\Exception $e ) {
+} catch( \Exception $e ) {
     echo $e->getMessage(), __LINE__;
-} catch( \Error $er) {
+} catch( \Error $er ) {
     echo $er->getMessage(), __LINE__;
 }
