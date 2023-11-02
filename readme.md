@@ -4,12 +4,12 @@ Features
 + MVC/S Architecture
 + Automatic Engine Level Class Auto-Loader
 + Auto-Routing!
-+ Authentication Compliant thru Unbroken PHP Encryption / Passwords - all automatic
-+ Authorization Compliant thru JsonWebTokens - all automatic
-+ Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizes DRY Principle.
++ Authentication Compliant through Unbroken PHP Encryption / Passwords - all automatic
++ Authorization Compliant through JsonWebTokens - all automatic
++ Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizes DRY Principle
 + Core Engine handles all Authorization / Authentication, File Loading, Routing and Invoking of correct code
-+ Only need to code 'Industry Standard' Models / Views / and Controllers. With the industry standard API Endpoint path.
-+ Service layer (business logic, business intelligence layer) also provided for.
++ Need only code 'Industry Standard' Models / Views / Controllers. Use industry standard API Endpoint paths
++ Service layer supported (business logic, business intelligence layer, et cetera)
 + Easy examples provided. More...
 
 Pages and API endpoints can be authorized, or not, depending on developer needs.  
@@ -21,19 +21,19 @@ Pages and API endpoints can be authorized, or not, depending on developer needs.
 Endpoint URL Path Scheme
 --
 
-Server Rendered Pages URL End-Point Convention:  
-**Website name / Controller / Action**;
+Server-side Rendered Pages URL End-Point Convention:  
+**Website name / controller / action**;
 
 Example:  
 kentthompson.org/user/getUser
 
 Actions are mapped to a method / function in the controller class.  
-Supports a Default Home Controller Scheme when used with only a website name and / or with just a page name.
+Automaticaly supports a Default, Home Controller Scheme when used with only a website name and / or just a page name.
 
 ----
 
 RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
-**Website name  / api / Controller / Action**
+**Website name  / api / controller / action**;
 
 Example:  
 kentthompson.org/api/user/getUser
@@ -45,7 +45,7 @@ Requirements
 MySQL Database  
 PHP 8.x
 
-Authorization
+Authorization (as opposed to Authentication)
 ----
 It is not needlessly "enforced."  
 If Authorization is desired, in Server side controllers, use '**parent::AuthUI()**' for webpages and '**parent::AuthApi()**' for API calls.  
@@ -55,8 +55,8 @@ Before Login:
 + GET and POST do not use authorization becuase a JsonWebToken (JWT) has not been issued. This is by design. Static pages, for example, usually do not need authorized as well, but can be if desired, with one line of code.
 
 After Login:
-+ One has to register first of course.
-+ Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in SessionStorage client side (/app/views/login).
++ One has to register as a user first, of course.
++ Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in SessionStorage, client side (/app/views/login).
 
 + GET requests should send the JWT, and the Engine expects, a JWT, if authorization is desired.
 + POST requests should send the JWT, and the Engine expects, a JWT, if authorization is desired.
