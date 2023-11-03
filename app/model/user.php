@@ -12,7 +12,7 @@ class User {
             $this->pdo = $this->db->connect();
         } catch( \Exception $e ) {
             echo $e->getMessage(), __LINE__,'<br>';
-        } catch( \Error $er) {
+        } catch( \Error $er ) {
             echo $er->getMessage(), __LINE__,'<br>';
         }        
     }
@@ -36,7 +36,8 @@ class User {
 
     public function getUserByName( $uname, &$data ) {
         //$qry = $this->pdo->query("select UserID, UserName, FirstName, LastName from Users where UserName = '$uname';");
-        $qry = $this->pdo->query("select * from Users where UserName = '$uname';"); // NEED PASSWORD
+
+        $qry = $this->pdo->query( "select * from Users where UserName = '$uname';" ); // NEED PASSWORD
         $data = $qry->fetch();
     }
 

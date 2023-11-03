@@ -13,7 +13,9 @@ Features
 + Easy examples provided. More...
 
 Pages and API endpoints can be authorized, or not, depending on developer needs.  
-**Note**: Some pages in this example are placeholders to show behavior.
+Note: Some pages in this example are placeholders to show behavior.
+
+**Notice:** I use "*HTML Partial Views*" to accommodate real-time Screen Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all the tags are correctly matched.
 
 "Engine" is located at /app/core/Application.  
 **Userlist** and **LegalDocs** show "mini-SPA" design and typical CRUD behavior.
@@ -29,7 +31,6 @@ kentthompson.org/user/getUser
 
 Actions are mapped to a method / function in the controller class.  
 Automaticaly supports a Default, Home Controller Scheme when used with only a website name and / or just a page name.
-
 ----
 
 RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
