@@ -29,8 +29,9 @@ Server-side Rendered Pages URL End-Point Convention:
 Example:  
 kentthompson.org/user/getUser
 
-Actions are mapped to a method / function in the controller class.  
-Automaticaly supports a Default, Home Controller Scheme when used with only a website name and / or just a page name.
++ Actions are mapped to a method / function in the controller class.  
++ Automaticaly supports a Default, Home Controller Scheme when used with only a website name and / or just a page name.
+
 ----
 
 RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
