@@ -51,17 +51,18 @@ class User {
         $fname = trim($_POST['fname']);
         $lname = trim($_POST['lname']);
         $email = trim($_POST['email']);
-        $bdate = trim($_POST['bdate']);
+        $bdate = trim($_POST['birthday']);
 
-        $sql = "UPDATE `test-db`.Users SET UserName = :uname, FirstName = :fname, LastName = :lname, Birthday = :bdate, Email = :email WHERE UserID = :id;";
+        //$sql = "UPDATE `test-db`.Users SET UserName = :uname, FirstName = :fname, LastName = :lname, Birthday = :bdate, Email = :email WHERE UserID = :id;";
+        $sql = "UPDATE `test-db`.Users SET UserName = '$uname', FirstName = '$fname', LastName = '$lname', Birthday = '$bdate', Email = '$email' WHERE UserID = $id;";
         $stmt =  $this->pdo->prepare( $sql );
 
-        $stmt->bindValue(":id", $id);
-        $stmt->bindValue(":uname", $uname);
-        $stmt->bindValue(":fname", $fname);
-        $stmt->bindValue(":lname", $lname);
-        $stmt->bindValue(":bdate", $bdate);
-        $stmt->bindValue(":email", $email);
+        // $stmt->bindValue(":id", $id);
+        // $stmt->bindValue(":uname", $uname);
+        // $stmt->bindValue(":fname", $fname);
+        // $stmt->bindValue(":lname", $lname);
+        // $stmt->bindValue(":bdate", $bdate);
+        // $stmt->bindValue(":email", $email);
         $stmt->execute();
         
         return true;
