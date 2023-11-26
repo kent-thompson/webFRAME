@@ -96,7 +96,7 @@ class User extends \App\core\ControllerBase {
 
     public function login() {
         if( $this->reqType == POST ) {
-            $uname = trim($_POST['uname']);
+            $uname = trim($_POST['uname']);                     // TODO validate
             $pwd = trim($_POST['psw']);
 
             $data = [];
