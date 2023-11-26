@@ -1,5 +1,4 @@
 <?php
-
 namespace App\core;
 
 // ** FILE CURRENTLY NOT USED - Refactored Out **

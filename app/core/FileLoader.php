@@ -3,7 +3,6 @@ namespace App\core;
 
 // ** FILE CURRENTLY NOT USED - Refactored Out **
 
-
 spl_autoload_register('App\core\FileLoader');
 function FileLoader($className) {
     // $path = 
