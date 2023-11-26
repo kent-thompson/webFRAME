@@ -66,15 +66,13 @@ class User extends \App\core\ControllerBase {
         require_once VIEWS . 'footer.php';
 	}
 
-    public function updateUser( $reqInfo ) {
+    public function updateUser( $reqInfo ) {    // an example
         parent::AuthUI();
         if( $this->reqType == POST ) {
-
-            $fname = $_POST['fname'];
-            $lname = $_POST['lname'];
+            $fname = trim( $_POST['fname'] );
+            $lname = trim( $_POST['lname'] );
             $data = [];
             $this->model->getUserByID( $id, $data );
-            //echo json_encode( $data );
             // fill out form and send back
         }
     }

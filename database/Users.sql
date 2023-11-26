@@ -9,7 +9,7 @@ Columns:
 	Password	varchar(255)
 
 
--- NOTE: THis is jsut a file to test various queries. Thanks.
+-- NOTE: various queries with various formats. More to come...
 SELECT * FROM `test-db`.Users;
 select UserID, UserName, FirstName, LastName, Email, DATE_FORMAT(Birthday, "%m/%d/%Y"), Password from Users where UserID = 1;
 select UserID, UserName, FirstName, LastName, Email, DATE_FORMAT(Birthday, '%m/%d/%Y') As BDate, Password from Users;
