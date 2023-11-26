@@ -18,7 +18,7 @@ Note: Some pages in this example are placeholders to show behavior.
 **Notice:** I use "*HTML Partial Views*" to accommodate real-time Screen Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all the tags are correctly matched.
 
 "Engine" is located at /app/core/Application.  
-**Userlist** and **LegalDocs** show "mini-SPA" design and typical CRUD behavior.
+**Userlist** shows "mini-SPA" design and typical CRUD behavior.
 
 Endpoint URL Path Scheme
 --
@@ -89,5 +89,6 @@ Known Issues
 Server side data validation needs to be improved in the service layer.  
 &nbsp;&nbsp;&nbsp;&nbsp;Generalize and paramterize validation functions in service layer.  
 Various 'error and exception pages' need to be made pretty and improved.  
+Finish **LegalDocs** examples.
 
 https://github.com/kent-thompson/test.git
