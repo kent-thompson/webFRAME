@@ -1,10 +1,10 @@
 <?php
 namespace App\core;
 
-$InstanceMethod;                    // The 'Oddity' look forward to explaining :)
+$InstanceMethod;
 
 class Application {
-    protected $controller;          // = 'home'; // using the controller name for simplicity
+    protected $controller;          // current controller object
     protected $controllerPath;      // file path to file
     // protected $action;           // = 'index';
     protected $params = [];
