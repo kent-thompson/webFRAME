@@ -44,6 +44,7 @@ class User extends \App\core\ControllerBase {
         echo json_encode( $data );
     }
 
+
     public function getUser( $reqInfo ) {
         parent::AuthApi();
 
@@ -55,6 +56,7 @@ class User extends \App\core\ControllerBase {
         }
     }
 
+    
     public function addUser( $reqInfo ) {
         parent::AuthApi();
 

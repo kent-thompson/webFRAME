@@ -63,7 +63,7 @@ class User {
         }
 
         // birthday
-        if (isset($_POST['birthday'])) {
+        if( isset($_POST['birthday']) ) {
             $dob = trim($_POST['birthday']);
             if (empty($dob)) {
                 $errors['dob'] = 'Please enter a date of birth';

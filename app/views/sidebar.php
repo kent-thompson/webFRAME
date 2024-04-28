@@ -15,12 +15,13 @@
         <div class="menuitem" onclick=logout();>Logout</div>
     </div>
     <div id="skeybox" class="stickybox sidebox smlrtxt">
-        Success in computer science comes from striving to be a skilled student of technology and always continue improving. Then working hard to become an expert and teach others to do the same. It can be a way to intellectually grow, prosper and forever stay energized, relevant, enthusiastic and prosperous.
+    Success in computer science comes from striving to be a skilled student of technology and always continue improving. Then working hard to become an expert and teach others to do the same. It can be a way to intellectually grow, prosper and forever stay alert, energized, relevant, enthusiastic and prosperous.
     </div>
     <img id="cpp_logo" src="../res/img/c.svg" width="200" height="200" alt="c++ logo" class="stickybox sidelogo">
 </div>
 <script>
-var basepath = gGetBasepath();    
+var basepath = gGetBasepath();
+
 function getIt( purl ) {
     if( sessionStorage.getItem('ktc_token') == '' ) {
         alert( 'NO TOKEN' );

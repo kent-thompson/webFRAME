@@ -20,7 +20,8 @@
         </div>
         <div class="form-group">	
             <label for="bdate"><b>Birthdate</b></label><br/>
-            <input type="date" class="form-control" placeholder="Enter Birthdate" id='bdate' name="bdate" value='' autofocus required>
+            <!-- <input type="date" class="form-control" placeholder="Enter Birthdate" id='bdate' name="bdate" value='' autofocus required> -->
+            <input class="form-control" placeholder="Enter Birthdate" id='bdate' name="birthday" value='' autofocus required>
         </div>
         <div class="form-group">
             <label for="psw"><b>Password</b></label><br/>

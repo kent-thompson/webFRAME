@@ -74,7 +74,7 @@ class Application {
         global $InstanceMethod;
 
         // form of auto class loader from file path, controller class gets instantiated and action / function invoked
-        if( file_exists($this->controllerPath) ) {    
+        if( file_exists($this->controllerPath) ) {
             try {
                 require_once $this->controllerPath;
 

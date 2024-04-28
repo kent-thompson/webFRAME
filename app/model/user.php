@@ -19,6 +19,7 @@ class User {
 
     public function createUser( &$user ) {
         $user->password = password_hash( $user->password, PASSWORD_DEFAULT );
+        //$user->password = password_hash( $user->password, PASSWORD_BCRYPT );
         $sql = "INSERT INTO Users ( UserName, FirstName, LastName, Birthday, Email, Password ) VALUES( '$user->uname', '$user->firstName', '$user->lastName', '$user->birthday', '$user->email', '$user->password' )";
         $ret = $this->pdo->exec( $sql );
         return $ret;

@@ -17,7 +17,6 @@ class User extends \App\core\ControllerBase {
 
     public function __construct( $reqInfo ) {
         parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
-
         try {
             $this->model = new \App\model\User; // note the 'root' \ global call path
         } catch( \Exception $e ) {
@@ -28,7 +27,7 @@ class User extends \App\core\ControllerBase {
             return false;
         }        
         try {
-            $this->userService = new \App\service\User;
+            $this->userService = new \App\service\User( $this->reqType );
         } catch( \Exception $e ) {
             echo $e->getMessage(), __LINE__,'<br>';
         } catch( \Error $er) {
@@ -66,7 +65,7 @@ class User extends \App\core\ControllerBase {
         require_once VIEWS . 'footer.php';
 	}
 
-    public function updateUser( $reqInfo ) {    // an example
+    public function updateUser( $reqInfo ) {
         parent::AuthUI();
         if( $this->reqType == POST ) {
             $fname = trim( $_POST['fname'] );
@@ -76,4 +75,23 @@ class User extends \App\core\ControllerBase {
             // fill out form and send back
         }
     }
+
+    public function createUser() {
+    // REGISTERS NEW USER - No Auth check
+
+        if( $this->reqType == POST ) {
+            $user = new \database\userEntity;
+            $errors = [];
+
+            $rslt = $this->userService->validate( $user, $errors ); // fills in $user
+            if( $rslt == false ) {
+                http_response_code(500);
+                echo json_encode( $errors ); // TODO
+                return;
+            }
+            $ret = $this->model->createUser( $user );
+           // TODO - redirect
+        }
+    }
+
 }//class

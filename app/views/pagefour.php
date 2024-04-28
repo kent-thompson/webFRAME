@@ -17,7 +17,7 @@
             <li>Windows Communication Foundation ( WCF )</li>
             <li>Generic Programming</li>
             <li>Microsoft Ajax</li>
-            <li>ADO.NET - ADO - DAO - ODBC - LINQ</li>
+            <li>ASP.NET - ADO.NET - ADO - DAO - ODBC - LINQ</li>
             <li>Microsoft Foundation Classes ( MFC )</li>
             <li>Team Foundation Server ( TFS )</li>
             <li>Component Object Model ( COM )</li>
