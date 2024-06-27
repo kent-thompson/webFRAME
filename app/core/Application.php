@@ -23,12 +23,7 @@ class Application {
                 $this->params[0] = GET;
                 break;
             case 'POST':
-                if( !empty($_POST) ) { 
                     $this->params[0] = POST;
-                } else {
-                    $GLOBALS['error_data'] = 'POST Request Sent With NO Data';
-                    include_once VIEWS . '404.php';
-                }
                 break;
         }
     }
@@ -39,7 +34,7 @@ class Application {
         // controller and action paths and names are set
         $request = trim( $_SERVER['REQUEST_URI'], '/' );
         if( empty($request) ) {
-            // first time with no querystring; ex: website.com
+            // default: first time with no querystring; ex: website.com
             $this->controllerPath = CONTROLLER . 'home.php';
             $this->controller = 'App\\controller\\home';
             // $this->action = 'index';
@@ -70,6 +65,7 @@ class Application {
          }
     }
 
+    
     protected function invoke() {
         global $InstanceMethod;
 

@@ -15,10 +15,8 @@ class User extends \App\core\ControllerBase {
 
     public function __construct( $reqInfo ) {
         parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
-
-        header("Content-Type: application/json");
         try {
-            $this->model = new \App\model\User; // note the 'root' \ global call path
+            $this->model = new \App\model\User;
         } catch( \Exception $e ) {
             echo $e->getMessage(), __LINE__,'<br>';
             return;
@@ -41,8 +39,9 @@ class User extends \App\core\ControllerBase {
 
         $data = [];
         $this->model->getAllUsers( $data );     // $data passed as an OUT param
-        echo json_encode( $data );
-    }
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data);
+        }
 
 
     public function getUser( $reqInfo ) {
@@ -98,8 +97,10 @@ class User extends \App\core\ControllerBase {
 
     public function login() {
         if( $this->reqType == POST ) {
-            $uname = trim($_POST['uname']);                     // TODO validate
-            $pwd = trim($_POST['psw']);
+            if (!empty($_POST) ) {
+                $uname = trim($_POST['uname']);                     // TODO validate
+                $pwd = trim($_POST['psw']);
+            }
 
             $data = [];
             $this->model->getUserByName( $uname, $data );       // $data passed as an OUT param
@@ -107,7 +108,9 @@ class User extends \App\core\ControllerBase {
             $rslt = password_verify( $pwd, $data['Password'] ); // compare passwords
             if( $rslt == false ) {
                 $GLOBALS['error_data'] = 'Incorrect Login Data';
-                include_once VIEWS . '404.php';
+                require_once VIEWS . '404.php';
+                header("HTTP/1.1 404 Not Found");
+                echo '{}';
                 return;
             }
 
@@ -128,28 +131,12 @@ class User extends \App\core\ControllerBase {
             } catch( \Error $er) {
                 echo $er->getMessage(), __LINE__,'<br>';
                 return false;
-            }                    
-            header( 'Authorization: Bearer ' . $jwt );
-            echo '{}';
+            }
+
+            header( 'Content-Type: text/html; charset=UTF-8');
+           echo $jwt;
         }
     }
 }
 
-    // May be deprecated... 
-    // public function validate() {
-    //     parent::AuthApi();
-    //     if( $this->reqType == GET ) {
-    //         $url = $_GET['data'];
-    //         if( ! isset($url) ) {
-    //             return false;
-    //         }
 
-    //         $s = 'Location: ' . $url;
-    //         header( $s );
-    //         if( $this->mIsAuth == true ) {
-    //             echo '{true}';
-    //         } else {
-    //             echo '{false}';
-    //         }
-    //     }
-    // }

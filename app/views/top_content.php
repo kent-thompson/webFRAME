@@ -1,6 +1,5 @@
 <body>
-    </script>
-    <div class="header">       
+     <div class="header">       
         <div class="shadow" id="plogo">
             <div id="top-bar-text1">Custom Software Solutions  Web Applications and More</div>
             <div id="top-bar-text2">Embedded Systems  Engineering</div>

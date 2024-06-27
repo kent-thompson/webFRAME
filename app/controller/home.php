@@ -129,9 +129,9 @@ class Home extends \App\core\ControllerBase {
     public function userlist() {
         parent::AuthUI();
         require_once VIEWS . 'head_begin.php';
-        require_once VIEWS . 'top_content.php';
-        require_once VIEWS . 'sidebar.php';
+        //require_once VIEWS . 'top_content.php';
+        //require_once VIEWS . 'sidebar.php';
         require_once VIEWS . 'userList.php';
-        require_once VIEWS . 'footer.php';
+        //require_once VIEWS . 'footer.php';
     }
 }

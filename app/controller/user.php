@@ -18,7 +18,7 @@ class User extends \App\core\ControllerBase {
     public function __construct( $reqInfo ) {
         parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
         try {
-            $this->model = new \App\model\User; // note the 'root' \ global call path
+            $this->model = new \App\model\User;
         } catch( \Exception $e ) {
             echo $e->getMessage(), __LINE__,'<br>';
             return false;
@@ -62,6 +62,7 @@ class User extends \App\core\ControllerBase {
         //     $this->model->getUserByName( $uname, $data );  // $data passed as an OUT param
         //     // load HTML form and render
         // }
+
         require_once VIEWS . 'footer.php';
 	}
 

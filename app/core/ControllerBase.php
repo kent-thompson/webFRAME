@@ -23,7 +23,7 @@ class ControllerBase {
         // HEADER: Get the access token from the header
         if (!empty($headers)) {
             if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-                try {    
+                try {
                     $this->mPayload = JWT::decode($matches[1], new Key($this->secretKey, 'HS256'));
                 } catch( LogicException $e ) {
                     // errors having to do with environmental setup or malformed JWT Keys
@@ -43,8 +43,8 @@ class ControllerBase {
 
     protected function getAuthorizationHeader(){
         $headers = null;
-        if (isset($_SERVER['Authorization'])) {
-            $headers = trim($_SERVER["Authorization"]);
+        if (isset($_SERVER['AUTHORIZATION'])) {
+            $headers = trim($_SERVER["AUTHORIZATION"]);
         }
         else if (isset($_SERVER['HTTP_AUTHORIZATION'])) { //Nginx or fast CGI
             $headers = trim($_SERVER["HTTP_AUTHORIZATION"]);

@@ -29,7 +29,7 @@ function getIt( purl ) {
     }
 
     var form = document.createElement('form');
-    form.setAttribute('method', 'GET');
+    form.setAttribute('method', 'POST');
     form.setAttribute('action', purl);
     var hfld = document.createElement('input');
     hfld.setAttribute('type', 'hidden');

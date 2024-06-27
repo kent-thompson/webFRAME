@@ -11,7 +11,7 @@
                 <input type="password" placeholder="Enter Password" id="psw" name="psw" required>
             </div>
             <div class="form-group">
-                <button id="lbtn" class="btn btn-primary" onclick="auth()">Login</button><br><br>
+                <button id="lbtn" type="button" class="btn btn-primary" onclick="doAuth()">Login</button><br><br>
                 <input type="checkbox" checked="checked" name="remember" disabled> Remember Me</input><br>
                 <a class="psw" href="#">Forgot Password?</a>
             </div>
@@ -20,41 +20,31 @@
     <p></p>
 </div>
 <form id='jform' action="/home/indexAuth" method="POST"><input type="hidden" id="jwt" name="jwt"></form>
+
 <script>
-var gBasepath = null;
+async function doAuth() {
 
-function auth() {
-    var gBasepath = gGetBasepath();
-    $.ajax({
-          url: gBasepath + '/api/user/login',
-        type:'POST',
-        data: { 'uname':$('#uname').val(), 'psw':$('#psw').val() }
-    })
-    .done( function( data, textStatus, jQxhr ) {
-        var retval = jQxhr.getResponseHeader( 'Authorization' );
-        var token = retval.split(' ');
-        if( token[1] ) {
-            sessionStorage.setItem( 'ktc_token', token[1] );
-            $('#jwt').val(token[1]);
-            $('#jform').submit();   // needed to set browser url - redirect
+    const res = await fetch( location.origin + '/api/user/login', {
+    method: 'POST',
+    headers: {'Content-type': 'application/x-www-form-urlencoded'},
+    body:   $('#lform').serialize() 
+//    body: new URLSearchParams({
+//         'uname': $('#uname').val(),
+//         'psw': $('#psw').val(),
+//         })
+     });
+    if (res.status >= 200 && res.status <= 299) {
+        const token = await res.text();
+        if( token ) {
+            sessionStorage.setItem( 'ktc_token', token );
+            $('#jwt').val(token);
+            $('#jform').submit();
+        } else {
+            // Handle errors
+            console.log(res.status, res.statusText);
         }
-    })
-    .fail( function( jqXhr, textStatus, errorThrown ) {
-        console.log( errorThrown );
-        alert( textStatus + ", " + errorThrown )
-    });
-}
-
-/*
-$(function(){
-  $('#psw').keypress(function(e) {
-    if(e.which == 13) {
-        $('#lbtn').focus();
-        $('#lbtn').click();
     }
-  });
-});
-*/
+}
 </script>
 <p></p>
 </body>

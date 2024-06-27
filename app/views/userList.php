@@ -1,3 +1,4 @@
+<body>
 <div class="col-center">
     <!-- DATA Table -->
     <h5>User List</h5>
@@ -20,6 +21,7 @@
     </table>
     <button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="addUser()" >Add User</button>
     <button type="button" class="btn btn-primary btn-vertical-bmargin" onclick="$('#backform').submit()" >Back</button>
+    <p></p>
     <form id='backform' action="/home/indexAuth" method="POST"><input type="hidden" id="ejwt" name="jwt"></form>
 
     <!-- Model Dialog -->
@@ -73,6 +75,7 @@
                 </div>
             </div>
         </div>
+        <p></p>
     </div>
 
     <!-- Modal Pop-Up -->
@@ -92,9 +95,7 @@
         </div>
     </div>
 </div>
-<div><p></p></div>
 <script>
-var gBasepath = gGetBasepath();
 var gDTable = null;
 var gID = null;
 var txtAction = '';
@@ -106,16 +107,26 @@ var eAction = Object.freeze({ // enum
 });
 
 $(document).ready(function() {
+
+// scrollToPager = () => {
+//   var y = $(window).scrollTop();
+//   $('html, body').animate({
+//     scrollTop: y + $('#myTable').height()
+//   })
+// }
+// var w_h = window.innerHeight;
+// var w_height = window.innerHeight  = (window.innerHeight * 0.5);
+
     gDtable = $('#usertable').DataTable( {
         ajax: {
-            type:'GET',
-            //dataType:'json',
-            url: gBasepath + '/api/user/getAllUsers',
+            type:'POST',
+            dataType:'json',
+            url: location.origin + '/api/user/getAllUsers',
             dataSrc: "",
             headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')}
         },
         "columns": [
-            { "data": "UserID" },            
+            { "data": "UserID" },
             { "data": "UserName" },
             { "data": "FirstName" },
             { "data": "LastName" },
@@ -127,6 +138,7 @@ $(document).ready(function() {
         "pageLength": 25
     });
 });
+
 
 // show empty user form
 addUser = () => {   // :(
@@ -189,18 +201,18 @@ function sendAjax( action ) {	                // handles add, update, delete
     var ddata = null;
 
     if( action === eAction.ADD ) {
-        apiPath = gBasepath + '/api/user/adduser';
+        apiPath = location.origin + '/api/user/adduser';
         ddata = $('#uform').serialize();
     } 
 
     if( action === eAction.EDIT ) {
-        apiPath = gBasepath + '/api/user/updateuser';
+        apiPath =location.origin + '/api/user/updateuser';
         ddata = $('#uform').serialize();
     }
 
     if( action === eAction.DELETE )  {
         $('#msgBox').modal('hide');
-        apiPath = gBasepath + '/api/user/deleteUserById';
+        apiPath = location.origin + '/api/user/deleteUserById';
         ddata = {'docid':gID};    
     }
     
@@ -236,7 +248,7 @@ function sendAjax( action ) {	                // handles add, update, delete
 
 function getUserData( id ) {
     $.ajax({
-        url: gBasepath + '/api/user/getUser', // byID
+        url: location.origin + '/api/user/getUser', // byID
         dataType:'json',
         type:'post',
         headers: {"Authorization": 'Bearer '+ sessionStorage.getItem('ktc_token')},

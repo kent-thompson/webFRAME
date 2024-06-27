@@ -3,7 +3,7 @@ function gGetBasepath() {
 	if( loc.indexOf('local') != -1 ) {
 		return "http://localhost:8000";
 	} else {
-		return "http://74.208.242.240:4000";
+		return "https://webmvc.kentthomspon.org";
 	}
 }
 
