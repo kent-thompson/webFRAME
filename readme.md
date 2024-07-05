@@ -17,7 +17,7 @@ Note: Some pages in this example are placeholders to show behavior.
 
 **Notice:** I use "*HTML Partial Views*" to accommodate real-time Screen Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all the tags are correctly matched.
 
- Kent Thompson, Copyright (c) 2007-2024 All rights reserved. All source code and IP.
+Copyright (c) 2007-2024 Kent Thompson, All rights reserved. All source code and IP.
 
 "Engine" is located at /app/core/Application.  
 **Userlist** shows "mini-SPA" design and typical CRUD API behavior.
