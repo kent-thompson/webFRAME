@@ -15,7 +15,7 @@ Features
 Pages and API endpoints can be authorized, or not, depending on developer needs.  
 Note: Some pages in this example are placeholders to show behavior.
 
-**Notice:** I use "*HTML Partial Views*" to accommodate real-time Screen Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all the tags are correctly matched.
+**Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all the tags are correctly matched.
 
 Copyright (c) 2007-2024 Kent Thompson, All rights reserved. All source code and IP.
 
@@ -46,7 +46,7 @@ Actions are mapped to a method / function in the controller class.
 
 Requirements
 ------------
-MySQL Database  
+SQL Database  
 PHP 8.x
 
 Authorization (as opposed to Authentication)
@@ -60,11 +60,9 @@ Before Login:
 
 After Login:
 + One has to register as a user first, of course.
-+ Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in SessionStorage, client side (/app/views/login).
++ Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in  client side SessionStorage, (/app/views/login). All performed automatically.
 
-+ GET requests should send the JWT, and the Engine expects, a JWT, if authorization is desired.
-+ POST requests should send the JWT, and the Engine expects, a JWT, if authorization is desired.
-+ POST requests that are Empty, that is have no data, are rejected by the engine. (Use GET instead, if that is what you want.)
++ GET and POST requests should send the client side stored JWT, and the Engine expects, a JWT, if authorization is desired.
 
 Get / Post based "Routing"
 ----
