@@ -91,7 +91,9 @@ class User extends \App\core\ControllerBase {
                 return;
             }
             $ret = $this->model->createUser( $user );
-           // TODO - redirect
+           $origin = $_SERVER['HTTP_ORIGIN'];
+           header('Location: ' . $origin, true, 301);
+           exit();
         }
     }
 
