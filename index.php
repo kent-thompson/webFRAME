@@ -12,6 +12,7 @@ const SERVICE = APP . 'service' . DS;
 const API = APP . 'api' . DS;
 const GLOSSY = ROOT . 'glossy2'. DS;
 
+// can add any number of other REST RM types like PUT, DELETE etc
 const GET = 1;
 const POST = 2;
 
