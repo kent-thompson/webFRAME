@@ -19,9 +19,24 @@ class User {
 
     public function createUser( &$user ) {
         $user->password = password_hash( $user->password, PASSWORD_DEFAULT );
-        //$user->password = password_hash( $user->password, PASSWORD_BCRYPT );
-        $sql = "INSERT INTO Users ( UserName, FirstName, LastName, Birthday, Email, Password ) VALUES( '$user->uname', '$user->firstName', '$user->lastName', '$user->birthday', '$user->email', '$user->password' )";
-        $ret = $this->pdo->exec( $sql );
+        //$sql = "INSERT INTO Users ( UserName, FirstName, LastName, Birthday, Email, Password ) VALUES( '$user->uname', '$user->firstName', '$user->lastName', '$user->birthday', '$user->email', '$user->password' )";
+
+        try {
+        $stmt = $this->pdo->prepare("INSERT INTO Users (UserName, FirstName, LastName, Birthday, Email, Password) VALUES(:UserName, :FirstName, :LastName, :Birthday, :Email, :Password)");
+        } catch( \Exception $e ) {
+            echo $e->getMessage(), __LINE__;
+            // return;
+        } catch( \Error $er ) {
+            echo $er->getMessage(), __LINE__;
+        }
+
+        $stmt->bindParam(':UserName', $user->uname);
+        $stmt->bindParam(':FirstName', $user->firstName);
+        $stmt->bindParam(':LastName', $user->lastName);
+        $stmt->bindParam(':Birthday', $user->birthday);
+        $stmt->bindParam(':Email', $user->email);
+        $stmt->bindParam(':Password', $user->password);
+        $stmt->execute();
         return $ret;
     }
 
