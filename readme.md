@@ -49,6 +49,10 @@ Requirements
 SQL Database  
 PHP 8.x
 
+Recommended:
+Datatables.js
+jQuery.js
+
 Authorization (as opposed to Authentication)
 ----
 It is not needlessly "enforced."  
