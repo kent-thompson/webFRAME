@@ -3,36 +3,38 @@ Features
 + Convention Over Configuration
 + MVC/S Architecture
 + Automatic Engine Level Class Auto-Loader
-+ Auto-Routing!
-+ Authentication Compliant through Unbroken PHP Encryption / Passwords - all automatic
-+ Authorization Compliant through JsonWebTokens - all automatic
++ Automatic Auto-Routing!
++ Automatic Inversion of Control
++ Automatic Authentication, Compliant through Unbroken PHP Encryption / Passwords
++ Automatic Authorization, Compliant through JsonWebTokens
++ Automatic Working Design and Code Upon Installation
 + Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizes DRY Principle
 + Core Engine handles all Authorization / Authentication, File Loading, Routing and Invoking of correct code
 + Need only code 'Industry Standard' Models / Views / Controllers. Use industry standard API Endpoint paths
 + Service layer supported (business logic, business intelligence layer, et cetera)
++ Pages and API Endpoints can be Authorized, or Not, depending on developer needs
++ All Modern Object-Oriented Code and Design
 + Easy examples provided. More...
 
-Pages and API endpoints can be authorized, or not, depending on developer needs.  
-Note: Some pages in this example are placeholders to show behavior.
-
-**Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all the tags are correctly matched.
+Some pages in this example are placeholders to show above behavior.  
+**Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all tags are correctly matched.
 
 Copyright (c) 2007-2024 Kent Thompson, All rights reserved. All source code and IP.
 
-"Engine" is located at /app/core/Application.  
+"Engine" is located at /app/core/Application.
+
 **Userlist** shows "mini-SPA" design and typical CRUD API behavior.
 
-Endpoint URL Path Scheme
+Endpoint URL Path Design
 --
-
 Server-side Rendered Pages URL End-Point Convention:  
 **Website name / controller / action**;
 
 Example:  
 kentthompson.org/user/getUser
 
-+ Actions are mapped to a method / function in the controller class.  
-+ Automaticaly supports a Default, Home Controller Scheme when used with only a website name and / or just a page name.
++ Actions are mapped to a method / function in the controller class.
++ Automaticaly supports a Default, Home Controller Design when used with only a website name and / or just a page name.
 
 ----
 

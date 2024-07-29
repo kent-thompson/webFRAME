@@ -4,9 +4,11 @@ namespace App\service;
 class User {
     private $reqType;
     //private $errors = [];
+    private $strMsg = ' must contain only letters and numbers';
 
      public function __construct( $reqtype_ ) {
         $this->reqType = $reqtype_;
+
      }
 
     public function validate( &$user, &$errors ) {
@@ -29,7 +31,7 @@ class User {
             if (empty($username)) {
                 $errors['uname'] = 'Please enter a username';
             } else if (!preg_match('/^[a-zA-Z0-9]+$/', $username)) {
-                $errors['uname'] = 'Username must contain only letters and numbers';
+                $errors['uname'] = 'Username' . $strMsg;
             } else if (strlen($username) < 6 || strlen($username) > 20) {
                 $errors['uname'] = 'Username must be between 6 and 20 characters long';
             }
@@ -42,9 +44,9 @@ class User {
             if (empty($fname)) {
                 $errors['fname'] = 'Please enter a first name';
             } else if (!preg_match('/^[a-zA-Z0-9]+$/', $fname)) {
-                $errors['fname'] = 'First name must contain only letters and numbers';
-            } else if (strlen($fname) < 6 || strlen($fname) > 20) {
-                $errors['fname'] = 'First name must be between 6 and 20 characters long';
+                $errors['fname'] = 'First name' . $strMsg;
+            } else if (strlen($fname) < 3 || strlen($fname) > 20) {
+                $errors['fname'] = 'First name must be between 3 and 20 characters long';
             }
             $user->firstName = $fname;
         }
@@ -55,9 +57,9 @@ class User {
             if (empty($lname)) {
                 $errors['lname'] = 'Please enter a last name';
             } else if (!preg_match('/^[a-zA-Z0-9]+$/', $lname)) {
-                $errors['lname'] = 'Last name must contain only letters and numbers';
-            } else if (strlen($lname) < 6 || strlen($lname) > 20) {
-                $errors['lname'] = 'Last name must be between 6 and 20 characters long';
+                $errors['lname'] = 'Last name' . $strMsg;
+            } else if (strlen($lname) < 3 || strlen($lname) > 20) {
+                $errors['lname'] = 'Last name must be between 3 and 20 characters long';
             }
             $user->lastName = $lname;
         }
@@ -66,11 +68,11 @@ class User {
         if( isset($_POST['birthday']) ) {
             $dob = trim($_POST['birthday']);
             if (empty($dob)) {
-                $errors['dob'] = 'Please enter a date of birth';
+                $errors['dob'] = 'Please enter a Date of Birth';
             } else {
                 $date = date_parse($dob);
                 if (!checkdate($date['month'], $date['day'], $date['year'])) {
-                    $errors['dob'] = 'Please enter a valid date of birth';
+                    $errors['dob'] = 'Please enter a valid Date of Birth';
                 }
             }
             $user->birthday = $dob;
@@ -92,10 +94,11 @@ class User {
             $pwd = trim($_POST['psw']);
             if (empty($pwd)) {
                 $errors['psw'] = 'Please enter a Password';
-            } else if ( ! ctype_alnum( $pwd) ) {
-                $errors['psw'] = 'Somehow there are Illegal Characters in the Password, Please Use Different Password';
-            } else if (strlen($pwd) < 6 || strlen($pwd) > 20) {
-                $errors['psw'] = 'Password must be between 6 and 20 characters long';
+            //} else if ( ! ctype_alnum( $pwd) ) {
+            } else if (!preg_match('/^[a-zA-Z0-9\s\p{P}]+$/', $pwd)) {              
+                $errors['psw'] = 'Illegal Characters in Password, Please Use Alpha-Numeric Characters and Punctuation';
+            } else if (strlen($pwd) < 8 || strlen($pwd) > 20) {
+                $errors['psw'] = 'Password must be between 8 and 20 characters long';
             }
             $user->password = $pwd;
         }

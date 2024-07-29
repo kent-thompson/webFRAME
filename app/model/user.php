@@ -36,8 +36,7 @@ class User {
         $stmt->bindParam(':Birthday', $user->birthday);
         $stmt->bindParam(':Email', $user->email);
         $stmt->bindParam(':Password', $user->password);
-        $stmt->execute();
-        return $ret;
+        return $stmt->execute();
     }
 
     public function getUserByID( $id, &$data ) {
