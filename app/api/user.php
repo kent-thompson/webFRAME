@@ -34,6 +34,7 @@ class User extends \App\core\ControllerBase {
         }
     }
 
+
     public function getAllUsers() {
         parent::AuthApi();
 
@@ -41,7 +42,8 @@ class User extends \App\core\ControllerBase {
         $this->model->getAllUsers( $data );     // $data passed as an OUT param
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
-        }
+    }
+
 
 
     public function getUser( $reqInfo ) {
@@ -74,6 +76,7 @@ class User extends \App\core\ControllerBase {
         }
     }
 
+
     public function updateUser( $reqInfo ) {
         parent::AuthApi();
         
@@ -85,6 +88,7 @@ class User extends \App\core\ControllerBase {
         }
     }
 
+
     public function deleteUserById( $reqInfo ) {
         parent::AuthApi();
         if( $this->reqType == POST ) {
@@ -95,48 +99,52 @@ class User extends \App\core\ControllerBase {
         }
     }
 
+
     public function login() {
-        if( $this->reqType == POST ) {
-            if (!empty($_POST) ) {
-                $uname = trim($_POST['uname']);                     // TODO validate
-                $pwd = trim($_POST['psw']);
-            }
+        if( ! $this->reqType == POST ) {
+            return;
+        }
 
-            $data = [];
-            $this->model->getUserByName( $uname, $data );       // $data passed as an OUT param
+        $errors = [];
+        $user = new \database\userEntity;
 
-            $rslt = password_verify( $pwd, $data['Password'] ); // compare passwords
-            if( $rslt == false ) {
-                $GLOBALS['error_data'] = 'Incorrect Login Data';
-                require_once VIEWS . '404.php';
-                header("HTTP/1.1 404 Not Found");
-                echo '{}';
-                return;
-            }
+        $rslt = $this->userService->validateLoginName( $user, $errors );
+        if( $rslt == false ) {
+            http_response_code(500);
+            echo json_encode( $errors ); // TODO: test
+            return;
+        }
 
-            $payload = [        // JWT
-                'iat' => time(),
-                'exp' => time() + 60*60*4, // + 4 hours
-                'role' => 'user',
-                'ID' => $data['UserID'],
-                'UserName' => $data['UserName']
-            ];
+        $data = [];
+        $this->model->getUserByName( $user->uname, $data );       // $data passed as an OUT param
 
-            // send back jwt
-            try {
-                $jwt = JWT::encode($payload, $this->secretKey, 'HS256');
-            } catch( \Exception $e ) {
-                echo $e->getMessage(), __LINE__,'<br>';
-                return false;
-            } catch( \Error $er) {
-                echo $er->getMessage(), __LINE__,'<br>';
-                return false;
-            }
+        $rslt = password_verify( $user->password, $data['Password'] ); // compare passwords
+        if( $rslt == false ) {
+            $GLOBALS['error_data'] = 'Incorrect Login Data';
+            require_once VIEWS . '404.php';
+            header("HTTP/1.1 404 Not Found");
+            //echo '{}';
+            return;
+        }
 
+        $payload = [        // JWT
+            'iat' => time(),
+            'exp' => time() + 60*60*4, // + 4 hours
+            'role' => 'user',
+            'ID' => $data['UserID'],
+            'UserName' => $data['UserName']
+        ];
+        // send back jwt
+        try {
+            $jwt = JWT::encode($payload, $this->secretKey, 'HS256');
+        } catch( \Exception $e ) {
+            echo $e->getMessage(), __LINE__,'<br>';
+            return false;
+        } catch( \Error $er) {
+            echo $er->getMessage(), __LINE__,'<br>';
+            return false;
+        }
             header( 'Content-Type: text/html; charset=UTF-8');
            echo $jwt;
-        }
-    }
-}
-
-
+    } //func
+} //class

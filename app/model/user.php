@@ -17,6 +17,7 @@ class User {
         }        
     }
 
+    
     public function createUser( &$user ) {
         $user->password = password_hash( $user->password, PASSWORD_DEFAULT );
         //$sql = "INSERT INTO Users ( UserName, FirstName, LastName, Birthday, Email, Password ) VALUES( '$user->uname', '$user->firstName', '$user->lastName', '$user->birthday', '$user->email', '$user->password' )";
@@ -39,12 +40,14 @@ class User {
         return $stmt->execute();
     }
 
+
     public function getUserByID( $id, &$data ) {
         // $sql = "SELECT UserID, UserName, FirstName, LastName, Email, DATE_FORMAT(Birthday, '%m-%d-%Y') As Birthday, Password FROM Users where UserID = $id;";
         $sql = "SELECT UserID, UserName, FirstName, LastName, Email, Birthday, Password FROM Users where UserID = $id;";
         $qry = $this->pdo->query( $sql );
         $data = $qry->fetch();
     }
+
 
     public function getUserByName( $uname, &$data ) {
         $qry = $this->pdo->query("select UserID, UserName, FirstName, LastName, Email, Birthday, Password from Users where UserName = '$uname';");
