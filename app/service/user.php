@@ -11,7 +11,7 @@ class User {
      }
 
 
-     public function validateLoginName( &$user, &$errors ) {    // uname and password passed in using $user
+     public function validateLogin( &$user, &$errors ) {    // uname and password passed in using $user
         $this->validateUName( $user, $errors );
         $this->validatePwd( $user, $errors );
         if( count($errors) > 0 ) {
@@ -37,17 +37,19 @@ class User {
         }
 
         // user uname
-        if( isset($_POST['uname']) ) {
-            $username = trim($_POST['uname']);
-            if (empty($username)) {
-                $errors['uname'] = 'Please enter a username';
-            } else if (!preg_match('/^[a-zA-Z0-9]+$/', $username)) {
-                $errors['uname'] = 'Username' . $strMsg;
-            } else if (strlen($username) < 6 || strlen($username) > 20) {
-                $errors['uname'] = 'Username must be between 6 and 20 characters long';
-            }
-            $user->uname = $username;
-        }
+        $this->validateUName( $user, $errors );
+
+        // if( isset($_POST['uname']) ) {
+        //     $username = trim($_POST['uname']);
+        //     if (empty($username)) {
+        //         $errors['uname'] = 'Please enter a username';
+        //     } else if (!preg_match('/^[a-zA-Z0-9]+$/', $username)) {
+        //         $errors['uname'] = 'Username' . $strMsg;
+        //     } else if (strlen($username) < 6 || strlen($username) > 20) {
+        //         $errors['uname'] = 'Username must be between 6 and 20 characters long';
+        //     }
+        //     $user->uname = $username;
+        //  }
 
         // first name
         if( isset($_POST['fname']) ) {
@@ -101,18 +103,20 @@ class User {
         }
 
         // passwword
-        if( isset($_POST['psw']) ) {
-            $pwd = trim($_POST['psw']);
-            if (empty($pwd)) {
-                $errors['psw'] = 'Please enter a Password';
-            //} else if ( ! ctype_alnum( $pwd) ) {
-            } else if (!preg_match('/^[a-zA-Z0-9\s\p{P}]+$/', $pwd)) {              
-                $errors['psw'] = 'Illegal Characters in Password, Please Use Alpha-Numeric Characters and Punctuation';
-            } else if (strlen($pwd) < 8 || strlen($pwd) > 20) {
-                $errors['psw'] = 'Password must be between 8 and 20 characters long';
-            }
-            $user->password = $pwd;
-        }
+        $this->validatePwd( $user, $errors );
+
+        // if( isset($_POST['psw']) ) {
+        //     $pwd = trim($_POST['psw']);
+        //     if (empty($pwd)) {
+        //         $errors['psw'] = 'Please enter a Password';
+        //     //} else if ( ! ctype_alnum( $pwd) ) {
+        //     } else if (!preg_match('/^[a-zA-Z0-9\s\p{P}]+$/', $pwd)) {              
+        //         $errors['psw'] = 'Illegal Characters in Password, Please Use Alpha-Numeric Characters and Punctuation';
+        //     } else if (strlen($pwd) < 8 || strlen($pwd) > 20) {
+        //         $errors['psw'] = 'Password must be between 8 and 20 characters long';
+        //     }
+        //     $user->password = $pwd;
+        // }
 
         if( count($errors) > 0 ) {
             return false;
@@ -141,7 +145,6 @@ class User {
             $pwd = trim($_POST['psw']);
             if (empty($pwd)) {
                 $errors['psw'] = 'Please enter a Password';
-            //} else if ( ! ctype_alnum( $pwd) ) {
             } else if (!preg_match('/^[a-zA-Z0-9\s\p{P}]+$/', $pwd)) {              
                 $errors['psw'] = 'Illegal Characters in Password, Please Use Alpha-Numeric Characters and Punctuation';
             } else if (strlen($pwd) < 6 || strlen($pwd) > 20) {

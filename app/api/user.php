@@ -108,7 +108,7 @@ class User extends \App\core\ControllerBase {
         $errors = [];
         $user = new \database\userEntity;
 
-        $rslt = $this->userService->validateLoginName( $user, $errors );
+        $rslt = $this->userService->validateLogin( $user, $errors );
         if( $rslt == false ) {
             http_response_code(500);
             echo json_encode( $errors ); // TODO: test
@@ -118,12 +118,12 @@ class User extends \App\core\ControllerBase {
         $data = [];
         $this->model->getUserByName( $user->uname, $data );       // $data passed as an OUT param
 
-        $rslt = password_verify( $user->password, $data['Password'] ); // compare passwords
+        $rslt = password_verify( $user->password, $data['Password'] ); // compare HASHED passwords
         if( $rslt == false ) {
             $GLOBALS['error_data'] = 'Incorrect Login Data';
             require_once VIEWS . '404.php';
             header("HTTP/1.1 404 Not Found");
-            //echo '{}';
+            echo '{}';
             return;
         }
 
