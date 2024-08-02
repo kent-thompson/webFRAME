@@ -55,6 +55,8 @@ Recommended:
 Datatables.js
 jQuery.js
 
+Note: If one does not have access to the php.ini, then a .htaccess file must be used. The one provided needs to have the website name (line 6) changed to a desired site.
+
 Authorization (as opposed to Authentication)
 ----
 It is not needlessly "enforced."  
@@ -66,7 +68,7 @@ Before Login:
 
 After Login:
 + One has to register as a user first, of course.
-+ Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in  client side SessionStorage, (/app/views/login). All performed automatically.
++ Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in  client side SessionStorage, (/app/views/login). This has to be done.
 
 + GET and POST requests should send the client side stored JWT, and the Engine expects, a JWT, if authorization is desired.
 
@@ -95,6 +97,6 @@ Known Issues
 Server side data validation needs to be improved in the service layer.  
 &nbsp;&nbsp;&nbsp;&nbsp;Generalize and paramterize validation functions in service layer.  
 Various 'error and exception pages' need to be made pretty and improved.  
-Finish **LegalDocs** examples.
+Finish LegalDocs examples.
 
 https://github.com/kent-thompson/test.git
