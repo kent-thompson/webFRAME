@@ -35,7 +35,8 @@ class User extends \App\core\ControllerBase {
         }        
 	}
 
-    public function getAllUsers( $reqInfo ) {
+
+    public function getAllUsers() {
         parent::AuthUI();
 
         $data = [];
@@ -47,7 +48,8 @@ class User extends \App\core\ControllerBase {
         // }
     }
 
-    public function getUserForm( $reqInfo ) {
+
+    public function getUserForm() {
         require_once VIEWS . 'head_begin.php';
         require_once VIEWS . 'top_content.php';
         require_once VIEWS . 'sidebar.php';
@@ -66,7 +68,8 @@ class User extends \App\core\ControllerBase {
         require_once VIEWS . 'footer.php';
 	}
 
-    public function updateUser( $reqInfo ) {
+
+    public function updateUser() {
         parent::AuthUI();
         if( $this->reqType == POST ) {
             $fname = trim( $_POST['fname'] );
@@ -76,6 +79,7 @@ class User extends \App\core\ControllerBase {
             // fill out form and send back
         }
     }
+
 
     public function createUser() {
     // REGISTERS NEW USER - No Auth check
