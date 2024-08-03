@@ -46,7 +46,7 @@ class User extends \App\core\ControllerBase {
 
 
 
-    public function getUser( $reqInfo ) {
+    public function getUser() {
         parent::AuthApi();
 
         if( $this->reqType == POST ) {
@@ -58,7 +58,7 @@ class User extends \App\core\ControllerBase {
     }
 
     
-    public function addUser( $reqInfo ) {
+    public function addUser() {
         parent::AuthApi();
 
         if( $this->reqType == POST ) {
@@ -77,7 +77,7 @@ class User extends \App\core\ControllerBase {
     }
 
 
-    public function updateUser( $reqInfo ) {
+    public function updateUser() {
         parent::AuthApi();
         
         if( $this->reqType == POST ) {
@@ -89,7 +89,7 @@ class User extends \App\core\ControllerBase {
     }
 
 
-    public function deleteUserById( $reqInfo ) {
+    public function deleteUserById() {
         parent::AuthApi();
         if( $this->reqType == POST ) {
             $id = $_POST['docid'];
@@ -118,7 +118,7 @@ class User extends \App\core\ControllerBase {
         $data = [];
         $this->model->getUserByName( $user->uname, $data );       // $data passed as an OUT param
 
-        $rslt = password_verify( $user->password, $data['Password'] ); // compare HASHED passwords
+        $rslt = password_verify( $user->password, $data['Password'] ); // compare with encrypted password from db, plain text password is NEVER stored
         if( $rslt == false ) {
             $GLOBALS['error_data'] = 'Incorrect Login Data';
             require_once VIEWS . '404.php';
