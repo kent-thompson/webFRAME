@@ -83,8 +83,8 @@ class Application {
                 return;
             }
         } else {
-            $GLOBALS['error_data'] = 'Controller ' . $this->controller;
-            include_once VIEWS . '404.php';
+            require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( 'Error: Controller ' . $this->controller . ' Missing', __FILE__, __LINE__ );
             return;
         }
 
@@ -98,15 +98,19 @@ class Application {
                 $this->controller->$InstanceMethod( $this->params );    // The MAGIC
 
             } catch( \Exception $e ) {
-                echo $e->getMessage(), __LINE__;
+                require_once SERVICE . 'ErrorHandler.php';
+                \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
                 return;
             } catch( \Error $er ) {
-                echo $er->getMessage(), __LINE__;
+                require_once SERVICE . 'ErrorHandler.php';
+                \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
                 return;
             }
         } else {
             $classObj = new \ReflectionClass( $this->controller );
-            echo 'ERROR: No '. $classObj->getName() . '\\' . $InstanceMethod . ' - Action Missing <br>';
+            $data = 'Error: ' . $classObj->getName() . '\\' . $InstanceMethod . ' Missing';
+            require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( $data, __FILE__, __LINE__ );
         }
     }
 }

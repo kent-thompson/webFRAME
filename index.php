@@ -24,7 +24,9 @@ require_once CORE . 'Application.php';
 try {
     new App\core\Application;
 } catch( \Exception $e ) {
-    echo $e->getMessage(), __LINE__;
+    require_once SERVICE . 'ErrorHandler.php';
+    \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
 } catch( \Error $er ) {
-    echo $er->getMessage(), __LINE__;
+    require_once SERVICE . 'ErrorHandler.php';
+    \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
 }

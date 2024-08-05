@@ -83,7 +83,6 @@ class User extends \App\core\ControllerBase {
 
     public function createUser() {
     // REGISTERS NEW USER - No Auth check
-
         if( $this->reqType == POST ) {
             $user = new \database\userEntity;
             $errors = [];
