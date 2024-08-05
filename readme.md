@@ -2,7 +2,7 @@ Features
 ------------
 + Convention Over Configuration
 + MVC/S Architecture
-+ Automatic Engine Level Class Auto-Loader
++ Automatic Engine Level Class Auto-Loader- Incredibly Fast and Efficient, Only Loads What's Needed for Each Request
 + Automatic Auto-Routing!
 + Automatic Inversion of Control
 + Automatic Authentication, Compliant through Unbroken PHP Encryption / Passwords
@@ -11,15 +11,16 @@ Features
 + Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizes DRY Principle
 + Core Engine handles all Authorization / Authentication, File Loading, Routing and Invoking of correct code
 + Need only code 'Industry Standard' Models / Views / Controllers. Use industry standard API Endpoint paths
-+ Service layer supported (business logic, business intelligence layer, et cetera)
++ Service layer supported; business logic, validation, error handling, et cetera
 + Pages and API Endpoints can be Authorized, or Not, depending on developer needs
 + All Modern Object-Oriented Code and Design
++ Easy to use Generalized Error Handling Design
 + Easy examples provided. More...
 
 Some pages in this example are placeholders to show above behavior.  
 **Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all tags are correctly matched.
 
-Copyright (c) 2007-2024 Kent Thompson, All rights reserved. All source code and IP.
+Copyright (c) 2024 Kent Thompson, All rights reserved. All source code and IP.
 
 "Engine" is located at /app/core/Application.
 
@@ -90,6 +91,14 @@ Inside a controller mapped method use this technique:
 ----
 
 **Database:**  See sql directory for database schemas. See /app/core/Database to set up database connection, et cetera.
+
+ADDED
+----
+
++ Greatly Improved Error Handling and created a "entry point" in the Service Layer. ErrorHandler.php.  
+This file represents an "entry point" to gracefully handle and report errors and exceptions.  
+Could go on to LOG errors, display various page types 404, 500 et cetra, and make them end-user 'pretty.'  
+Whatever the Problem Domains dictates. It can spring from here.
 
 Known Issues
 ----
