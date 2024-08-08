@@ -17,22 +17,30 @@ class User extends \App\core\ControllerBase {
         parent::__construct( $reqInfo[0] );     // $reqInfo[0] is reqType
         try {
             $this->model = new \App\model\User;
-        } catch( \Exception $e ) {
-            echo $e->getMessage(), __LINE__,'<br>';
-            return;
-        } catch( \Error $er) {
-            echo $er->getMessage(), __LINE__,'<br>';
-            return;
-        }
+
+            } catch( \Exception $e ) {
+                require_once SERVICE . 'ErrorHandler.php';
+                \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+                return;
+            } catch( \Error $er ) {
+                require_once SERVICE . 'ErrorHandler.php';
+                \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+                return;
+            }
 
         try {
             $this->userService = new \App\service\User( $this->reqType );
+
         } catch( \Exception $e ) {
-            echo $e->getMessage(), __LINE__,'<br>';
-        } catch( \Error $er) {
-            echo $er->getMessage(), __LINE__,'<br>';
+            require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+            return;
+        } catch( \Error $er ) {
+            require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+            return;
         }
-    }
+}
 
 
     public function getAllUsers() {
@@ -110,8 +118,8 @@ class User extends \App\core\ControllerBase {
 
         $rslt = $this->userService->validateLogin( $user, $errors );
         if( $rslt == false ) {
-            http_response_code(500);
-            echo json_encode( $errors ); // TODO: test
+            header("HTTP/1.1 250 Invalid Data");
+            echo json_encode( $errors );
             return;
         }
 
@@ -120,10 +128,8 @@ class User extends \App\core\ControllerBase {
 
         $rslt = password_verify( $user->password, $data['Password'] ); // compare with encrypted password from db, plain text password is NEVER stored
         if( $rslt == false ) {
-            $GLOBALS['error_data'] = 'Incorrect Login Data';
-            require_once VIEWS . '404.php';
-            header("HTTP/1.1 404 Not Found");
-            echo '{}';
+            header("HTTP/1.1 250 Invalid Data");
+            echo 'Login Data Is Incorrect';
             return;
         }
 
@@ -138,13 +144,15 @@ class User extends \App\core\ControllerBase {
         try {
             $jwt = JWT::encode($payload, $this->secretKey, 'HS256');
         } catch( \Exception $e ) {
-            echo $e->getMessage(), __LINE__,'<br>';
-            return false;
-        } catch( \Error $er) {
-            echo $er->getMessage(), __LINE__,'<br>';
-            return false;
+            require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+            return;
+        } catch( \Error $er ) {
+            require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+            return;
         }
-            header( 'Content-Type: text/html; charset=UTF-8');
+        header( 'Content-Type: text/html; charset=UTF-8');
            echo $jwt;
     } //func
 } //class

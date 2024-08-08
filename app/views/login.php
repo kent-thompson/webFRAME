@@ -23,28 +23,35 @@
 
 <script>
 async function doAuth() {
-
-    const res = await fetch( location.origin + '/api/user/login', {
-    method: 'POST',
-    headers: {'Content-type': 'application/x-www-form-urlencoded'},
-    body:   $('#lform').serialize() 
-//    body: new URLSearchParams({
-//         'uname': $('#uname').val(),
-//         'psw': $('#psw').val(),
-//         })
-     });
-    if (res.status >= 200 && res.status <= 299) {
-        const token = await res.text();
-        if( token ) {
-            sessionStorage.setItem( 'ktc_token', token );
-            $('#jwt').val(token);
-            $('#jform').submit();
-        } else {
-            // Handle errors
-            console.log(res.status, res.statusText);
+    try {
+        const res = await fetch( location.origin + '/api/user/login', {
+        method: 'POST',
+        headers: {'Content-type': 'application/x-www-form-urlencoded'},
+        body:   $('#lform').serialize() 
+        })
+    
+        if (res.status >= 200 && res.status <= 299) {
+            const rdata = await res.text();
+            if( res.status == 250) {    // invalid login data
+                console.log( rdata );
+                alert( rdata );         // show errors
+                return;
+            }
+            if( rdata ) {               // real token
+                sessionStorage.setItem( 'ktc_token', rdata );
+                $('#jwt').val(rdata);
+                $('#jform').submit();
+            } else {
+                // Handle errors
+                console.log(res.status, res.statusText);
+            }
         }
-    }
+    } catch (error) {
+        console.log( error );
+  }
+
 }
+
 </script>
 <p></p>
 </body>
