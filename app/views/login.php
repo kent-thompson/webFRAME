@@ -23,35 +23,30 @@
 
 <script>
 async function doAuth() {
-    try {
         const res = await fetch( location.origin + '/api/user/login', {
         method: 'POST',
         headers: {'Content-type': 'application/x-www-form-urlencoded'},
-        body:   $('#lform').serialize() 
-        })
+        body: $('#lform').serialize() 
+        });
     
-        if (res.status >= 200 && res.status <= 299) {
+        if ( res.status == 200 ) {
             const rdata = await res.text();
-            if( res.status == 250) {    // invalid login data
-                console.log( rdata );
-                alert( rdata );         // show errors
-                return;
-            }
             if( rdata ) {               // real token
                 sessionStorage.setItem( 'ktc_token', rdata );
                 $('#jwt').val(rdata);
                 $('#jform').submit();
             } else {
-                // Handle errors
                 console.log(res.status, res.statusText);
             }
         }
-    } catch (error) {
-        console.log( error );
-  }
-
+        if( res.status >= 400 && res.status <= 499 ) { // data error
+            const rdata = await res.text();
+            if( res.status == 401) {    // invalid login data
+                console.log( rdata );
+                alert( rdata );         // show errors
+            }
+        }
 }
-
 </script>
 <p></p>
 </body>
