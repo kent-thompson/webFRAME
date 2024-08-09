@@ -231,18 +231,10 @@ function sendAjax( action ) {	                // handles add, update, delete
     })
     .fail( function( jqXhr, textStatus, errorThrown ) {
             console.log(jqXhr, textStatus, errorThrown);
-            //var errors = Object.entries( jqXhr.responseJSON );
-            $('#myModal').modal('hide');
-
-            $('#btnOk').hide();
+            // RE-USING this general popup msgBox
             $('#magBoxTitle').text('Validation Errors');
             $('#popup-msg').text( JSON.stringify(jqXhr.responseJSON) );
             $('#msgBox').modal('show');
-
-            // for( var key in jqXhr.responseJSON ) {
-            //     console.log(`${key} -> ${jqXhr.responseJSON[key]}`)
-            // }
-            // alert( textStatus + ", " + errorThrown )
     });
 }
 

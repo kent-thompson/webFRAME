@@ -65,21 +65,23 @@ class Application {
          }
     }
 
-    
+
     protected function invoke() {
         global $InstanceMethod;
 
-        // form of auto class loader from file path, controller class gets instantiated and action / function invoked
+        // auto class loader from file path, controller class gets instantiated and action / function invoked
         if( file_exists($this->controllerPath) ) {
             try {
                 require_once $this->controllerPath;
+                $this->controller = new $this->controller( $this->params );                
 
-                $this->controller = new $this->controller( $this->params );
             } catch( \Exception $e ) {
-                echo $e->getMessage(), __LINE__,'<br>';
+                require_once SERVICE . 'ErrorHandler.php';
+                \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
                 return;
-            } catch( \Error $er) {
-                echo $er->getMessage(), __LINE__,'<br>';
+            } catch( \Error $er ) {
+                require_once SERVICE . 'ErrorHandler.php';
+                \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
                 return;
             }
         } else {

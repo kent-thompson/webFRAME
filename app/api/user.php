@@ -77,8 +77,6 @@ class User extends \App\core\ControllerBase {
             if( $rslt == false ) {
                 header("HTTP/1.1 418 Invalid Data");
                 echo json_encode( $errors );
-                // http_response_code(500);
-                // echo json_encode( $errors );
                 return;
             }
             $ret = $this->model->createUser( $user );
@@ -120,7 +118,6 @@ class User extends \App\core\ControllerBase {
 
         $rslt = $this->userService->validateLogin( $user, $errors );
         if( $rslt == false ) {
-            //header("HTTP/1.1 250 Invalid Data");
             header("HTTP/1.1 401 Invalid Login Data");
             echo json_encode( $errors );
             return;
