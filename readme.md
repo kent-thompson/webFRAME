@@ -2,19 +2,20 @@ Features
 ------------
 + Convention Over Configuration
 + MVC/S Architecture
-+ Automatic Engine Level Class Auto-Loader- Incredibly Fast and Efficient, Only Loads What's Needed for Each Request
++ Automatic Engine Level Class Auto-Loader, Incredibly Fast, Only Loads What's Needed for Each Request
 + Automatic Auto-Routing!
 + Automatic Inversion of Control
 + Automatic Authentication, Compliant through Unbroken PHP Encryption / Passwords
 + Automatic Authorization, Compliant through JsonWebTokens
 + Automatic Working Design and Code Upon Installation
-+ Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizes DRY Principle
++ Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizing DRY Principle
 + Core Engine handles all Authorization / Authentication, File Loading, Routing and Invoking of correct code
 + Need only code 'Industry Standard' Models / Views / Controllers. Use industry standard API Endpoint paths
 + Service layer supported; business logic, validation, error handling, et cetera
 + Pages and API Endpoints can be Authorized, or Not, depending on developer needs
 + All Modern Object-Oriented Code and Design
-+ Easy to use Generalized Error Handling Design
++ Easy to use Efficient Generalized Error Handling Design
++ Multiple databases can be supported
 + Easy examples provided. More...
 
 Some pages in this example are placeholders to show above behavior.  
@@ -35,11 +36,11 @@ Example:
 kentthompson.org/user/getUser
 
 + Actions are mapped to a method / function in the controller class.
-+ Automaticaly supports a Default, Home Controller Design when used with only a website name and / or just a page name.
++ Automaticaly supports a Default, Home Controller Design when used with only a website name and / or just a page name request.
 
 ----
 
-RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
+REST / RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
 **Website name  / api / controller / action**;
 
 Example:  
@@ -49,7 +50,7 @@ Actions are mapped to a method / function in the controller class.
 
 Requirements
 ------------
-SQL Database  
+SQL Database  (NoSQL DB could easily be integrated)
 PHP 8.x
 
 Recommended:
@@ -67,10 +68,12 @@ If Authorization is desired, in Server side controllers, use '**parent::AuthUI()
 Before Login:
 + GET and POST do not use authorization becuase a JsonWebToken (JWT) has not been issued. This is by design. Static pages, for example, usually do not need authorized as well, but can be if desired, with one line of code.
 
-After Login:
+Login:
 + One has to register as a user first, of course.
 + Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in  client side SessionStorage, (/app/views/login). This has to be done.
 
+After Login:
++ A JasonWebToken (JWT) is passed to the server for Authrorization for each request, as required.
 + GET and POST requests should send the client side stored JWT, and the Engine expects, a JWT, if authorization is desired.
 
 Get / Post based "Routing"
@@ -103,9 +106,7 @@ Whatever the Problem Domains dictates. It can spring from here.
 Known Issues
 ----
 
-Server side data validation needs to be improved in the service layer.  
-&nbsp;&nbsp;&nbsp;&nbsp;Generalize and paramterize validation functions in service layer.  
-Various 'error and exception pages' need to be made pretty and improved.  
+Finish full coverage of new error handler code
 Finish LegalDocs examples.
 
 https://github.com/kent-thompson/test.git
