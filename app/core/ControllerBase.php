@@ -18,6 +18,10 @@ class ControllerBase {
         $this->reqType = $reqtype_;
     }
 
+    protected function jwtEncode( &$payload ) {
+        return JWT::encode( $payload, $this->secretKey, 'HS256' );
+    }
+
     protected function AuthApi() {
         $headers = $this->getAuthorizationHeader();
         // HEADER: Get the access token from the header
@@ -41,7 +45,7 @@ class ControllerBase {
         throw new \Exception('NOT AUTHORIZED - Please Login '); 
     }
 
-    protected function getAuthorizationHeader(){
+    protected function getAuthorizationHeader() {
         $headers = null;
         if (isset($_SERVER['AUTHORIZATION'])) {
             $headers = trim($_SERVER["AUTHORIZATION"]);

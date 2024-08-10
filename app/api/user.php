@@ -5,10 +5,6 @@ require_once MODEL . 'user.php';
 require_once SERVICE . 'user.php';
 require_once DATABASE . 'userEntity.php';
 
-require_once 'vendor/autoload.php';
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
 class User extends \App\core\ControllerBase {
     private $model;
     private $userService;
@@ -135,14 +131,15 @@ class User extends \App\core\ControllerBase {
 
         $payload = [        // JWT
             'iat' => time(),
-            'exp' => time() + 60*60*4, // + 4 hours
+            'exp' => time() + 3600*4, // + 4 hours
             'role' => 'user',
             'ID' => $data['UserID'],
             'UserName' => $data['UserName']
         ];
         // send back jwt
         try {
-            $jwt = JWT::encode($payload, $this->secretKey, 'HS256');
+            $jwt = parent::jwtEncode( $payload );
+
         } catch( \Exception $e ) {
             require_once SERVICE . 'ErrorHandler.php';
             \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );

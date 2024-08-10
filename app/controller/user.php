@@ -5,10 +5,6 @@ require_once MODEL . 'user.php';
 require_once SERVICE . 'user.php';
 require_once DATABASE . 'userEntity.php';
 
-require_once 'vendor/autoload.php';
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
 // SERVER SIDE RENDER 
 // NOTE: When using "mini-SPAs" and Ajax / Json based API these don't make much sense anymore. That's why they are not developed. But COULD be if needed.
 class User extends \App\core\ControllerBase {
