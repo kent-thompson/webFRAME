@@ -57,8 +57,6 @@ Recommended:
 Datatables.js
 jQuery.js
 
-Note: If one does not have access to the php.ini, then a .htaccess file must be used. The one provided needs to have the website name (line 6) changed to a desired site.
-
 Authorization (as opposed to Authentication)
 ----
 It is not needlessly "enforced."  
