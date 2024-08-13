@@ -8,6 +8,7 @@ Features
 + Automatic Authentication, Compliant through Unbroken PHP Encryption / Passwords
 + Automatic Authorization, Compliant through JsonWebTokens
 + Automatic Working Design and Code Upon Installation
++ Separation of Concerns is Emphasized
 + Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizing DRY Principle
 + Core Engine handles all Authorization / Authentication, File Loading, Routing and Invoking of correct code
 + Need only code 'Industry Standard' Models / Views / Controllers. Use industry standard API Endpoint paths
@@ -50,11 +51,11 @@ Actions are mapped to a method / function in the controller class.
 
 Requirements
 ------------
-SQL Database  (NoSQL DB could easily be integrated)
-PHP 8.x
++ SQL Database  (NoSQL DB could easily be integrated)  
++ PHP 8.x
 
 Recommended:
-Datatables.js
+Datatables.js,
 jQuery.js
 
 Authorization (as opposed to Authentication)
@@ -74,9 +75,9 @@ After Login:
 + A JasonWebToken (JWT) is passed to the server for Authrorization for each request, as required.
 + GET and POST requests should send the client side stored JWT, and the Engine expects, a JWT, if authorization is desired.
 
-Get / Post based "Routing"
+Request (Get / Post) based "Routing"
 ----
-No Need For Seperate Methods for Each Http / REST Verb. Using the DRY principle.  
+No Need For Seperate Methods for Each Http / REST Verb. Employs the DRY principle.  
 Inside a controller mapped method use this technique:
 ```c++
     if( $this->reqType === GET ) {
@@ -93,7 +94,7 @@ Inside a controller mapped method use this technique:
 
 **Database:**  See sql directory for database schemas. See /app/core/Database to set up database connection, et cetera.
 
-ADDED
+Added
 ----
 
 + Greatly Improved Error Handling and created a "entry point" in the Service Layer. ErrorHandler.php.  
