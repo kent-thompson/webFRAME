@@ -2,6 +2,7 @@ Features
 ------------
 + Convention Over Configuration
 + MVC/S Architecture
++ Object Oriented, High Performance, Efficient Algorithms
 + Automatic Engine Level Class Auto-Loader, Incredibly Fast, Only Loads What's Needed for Each Request
 + Automatic Auto-Routing!
 + Automatic Inversion of Control
@@ -9,7 +10,7 @@ Features
 + Automatic Authorization, Compliant through JsonWebTokens
 + Automatic Working Design and Code Upon Installation
 + Separation of Concerns is Emphasized
-+ Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizing DRY Principle
++ Views - Section / Page Composition is Encouraged, But Not Mandatory. Emphasizes DRY Principle
 + Core Engine handles all Authorization / Authentication, File Loading, Routing and Invoking of correct code
 + Need only code 'Industry Standard' Models / Views / Controllers. Use industry standard API Endpoint paths
 + Service layer supported; business logic, validation, error handling, et cetera
@@ -17,6 +18,8 @@ Features
 + All Modern Object-Oriented Code and Design
 + Easy to use Efficient Generalized Error Handling Design
 + Multiple databases can be supported
++ Easily Extensible
++ JsonWebTokens Provide Excellent, Distributed Security Without the Need for Sessions, Cookies and Mulitple Database Lookups
 + Easy examples provided. More...
 
 Some pages in this example are placeholders to show above behavior.  
