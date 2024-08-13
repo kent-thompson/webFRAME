@@ -15,6 +15,7 @@ class Application {
         $this->invoke();
     }
 
+
     protected function setReqMethod() {
         // can add any number of other REST RM types like PUT, DELETE etc.
         $val = strtoupper( $_SERVER['REQUEST_METHOD'] );
@@ -28,10 +29,11 @@ class Application {
         }
     }
 
+
     protected function parseURL() {
         global $InstanceMethod;
-
         // controller and action paths and names are set
+
         $request = trim( $_SERVER['REQUEST_URI'], '/' );
         if( empty($request) ) {
             // default: first time with no querystring; ex: website.com
@@ -39,30 +41,31 @@ class Application {
             $this->controller = 'App\\controller\\home';
             // $this->action = 'index';
             $InstanceMethod = 'index';
-        } else {
-            $url = parse_url( $request );
-            $urlPath = explode( '/', $url['path'] );
-
-            // based upon index position, we know controller / action-page / params
-            if( count($urlPath) == 1 ) {
-                $this->controllerPath = CONTROLLER . 'home.php';
-                $this->controller = 'App\\controller\\home';
-                // $this->action = $urlPath[0];
-                $InstanceMethod = $urlPath[0];
-            } else if( count($urlPath) > 1 ) {
-                if( $urlPath[0] == 'api' ) {
-                    $this->controllerPath = API . $urlPath[1] . '.php'; // now current controller PATH
-                    $this->controller = "App\\api\\" . $urlPath[1];     // now current controller CLASS
-                    // $this->action = $urlPath[2];                     // method / function
-                    $InstanceMethod = $urlPath[2];
-                } else {
-                    $this->controllerPath = CONTROLLER . $urlPath[0] . '.php';  // now current controller
-                    $this->controller = "App\\controller\\" . $urlPath[0];      // now current controller CLASS
-                    // $this->action = $urlPath[1];                             // method / function
-                    $InstanceMethod = $urlPath[1];
-                }
+            return;
+        }
+       $url = parse_url( $request );
+       $urlPath = explode( '/', $url['path'] );
+       // based upon index position, we know controller / action-page / params
+        if( count($urlPath) == 1 ) {
+            $this->controllerPath = CONTROLLER . 'home.php';
+            $this->controller = 'App\\controller\\home';
+            // $this->action = $urlPath[0];
+            $InstanceMethod = $urlPath[0];
+            return;
+        }
+        if( count($urlPath) > 1 ) {
+            if( $urlPath[0] == 'api' ) {
+                $this->controllerPath = API . $urlPath[1] . '.php'; // now current controller PATH
+                $this->controller = "App\\api\\" . $urlPath[1];     // now current controller CLASS
+                // $this->action = $urlPath[2];                     // method / function
+                $InstanceMethod = $urlPath[2];
+            } else {
+                $this->controllerPath = CONTROLLER . $urlPath[0] . '.php';  // now current controller
+                $this->controller = "App\\controller\\" . $urlPath[0];      // now current controller CLASS
+                // $this->action = $urlPath[1];                             // method / function
+                $InstanceMethod = $urlPath[1];
             }
-         }
+        }
     }
 
 
