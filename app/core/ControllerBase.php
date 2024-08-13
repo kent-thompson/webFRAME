@@ -18,6 +18,7 @@ class ControllerBase {
         $this->reqType = $reqtype_;
     }
 
+
     protected function jwtEncode( &$payload ) {
         return JWT::encode( $payload, $this->secretKey, 'HS256' );
     }
@@ -25,25 +26,38 @@ class ControllerBase {
     protected function AuthApi() {
         $headers = $this->getAuthorizationHeader();
         // HEADER: Get the access token from the header
-        if (!empty($headers)) {
-            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+        if( !empty($headers) ) {
+            if( preg_match('/Bearer\s(\S+)/', $headers, $matches) ) {
                 try {
                     $this->mPayload = JWT::decode($matches[1], new Key($this->secretKey, 'HS256'));
+
                 } catch( LogicException $e ) {
                     // errors having to do with environmental setup or malformed JWT Keys
-                    $s = 'NOT AUTHORIZED: ' . $e->getMessage();
-                    throw new \Exception( $s );
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'NOT AUTHORIZED: ' . $e->getMessage(), __FILE__, __LINE__ );
+                    return;
                 } catch( UnexpectedValueException $e ) {
                     // errors having to do with JWT signature and claims
-                    $s = 'NOT AUTHORIZED: ' . $e->getMessage();
-                    throw new \Exception( $s );
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'NOT AUTHORIZED: ' . $e->getMessage(), __FILE__, __LINE__ );
+                    return;
+                } catch( \Exception $e ) {
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+                    return;
+                } catch( \Error $er ) {
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+                    return;
                 }
-                $this->mIsAuth = true;
-                return true;
             }
+            $this->mIsAuth = true;
+            return true;
         }
-        throw new \Exception('NOT AUTHORIZED - Please Login '); 
+        require_once SERVICE . 'ErrorHandler.php';
+        \App\service\Call404('NOT AUTHORIZED - Please Login ', __FILE__, __LINE__ );
     }
+
 
     protected function getAuthorizationHeader() {
         $headers = null;
@@ -77,18 +91,30 @@ class ControllerBase {
         if (isset($token) && $token !== '') {
             try {
                 $this->mPayload = JWT::decode($token, new Key($this->secretKey, 'HS256'));
-            } catch( LogicException $e ) {
-                // errors having to do with environmental setup or malformed JWT Keys
-                $s = 'NOT AUTHORIZED: ' . $e->getMessage();
-                throw new \Exception( $s );
-            } catch( UnexpectedValueException $e ) {
-                // errors having to do with JWT signature and claims
-                $s = 'NOT AUTHORIZED: ' . $e->getMessage();
-                throw new \Exception( $s );
-            }
+
+                } catch( LogicException $e ) {
+                    // errors having to do with environmental setup or malformed JWT Keys
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'NOT AUTHORIZED: ' . $e->getMessage(), __FILE__, __LINE__ );
+                    return;
+                } catch( UnexpectedValueException $e ) {
+                    // errors having to do with JWT signature and claims
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'NOT AUTHORIZED: ' . $e->getMessage(), __FILE__, __LINE__ );
+                    return;
+                } catch( \Exception $e ) {
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+                    return;
+                } catch( \Error $er ) {
+                    require_once SERVICE . 'ErrorHandler.php';
+                    \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+                    return;
+                }
             $this->mIsAuth = true;
         } else {
-            throw new \Exception("NOT AUTHORIZED - Please Login "); 
+            require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404('NOT AUTHORIZED - Please Login ', __FILE__, __LINE__ );
         }
     }
 
@@ -109,7 +135,7 @@ class ControllerBase {
 
         $payload = [
             'iat' => time(),
-            'exp' => time() + 60*60*4, // + 4 hours TODO: get time from single source
+            'exp' => time() + 3600*4, // + 4 hours TODO: get time from single source
             'role' => 'user'
         ];
         $this->mPayload = array_merge($payload, $data);
