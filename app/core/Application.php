@@ -36,16 +36,17 @@ class Application {
 
         $request = trim( $_SERVER['REQUEST_URI'], '/' );
         if( empty($request) ) {
-            // default: first time with no querystring; ex: website.com
+            // by convention, if no querystring; ex: web-app.com uses default: home controller and index action
             $this->controllerPath = CONTROLLER . 'home.php';
             $this->controller = 'App\\controller\\home';
             // $this->action = 'index';
             $InstanceMethod = 'index';
             return;
         }
+
        $url = parse_url( $request );
        $urlPath = explode( '/', $url['path'] );
-       // based upon index position, we know controller / action-page / params
+        // by convention, if only one element, it's a home page action - see views/sidebar
         if( count($urlPath) == 1 ) {
             $this->controllerPath = CONTROLLER . 'home.php';
             $this->controller = 'App\\controller\\home';
@@ -53,6 +54,8 @@ class Application {
             $InstanceMethod = $urlPath[0];
             return;
         }
+
+        // based upon index position, we know api, non-api / controller / action-page / params
         if( count($urlPath) > 1 ) {
             if( $urlPath[0] == 'api' ) {
                 $this->controllerPath = API . $urlPath[1] . '.php'; // now current controller PATH
@@ -76,7 +79,7 @@ class Application {
         if( file_exists($this->controllerPath) ) {
             try {
                 require_once $this->controllerPath;
-                $this->controller = new $this->controller( $this->params );                
+                $this->controller = new $this->controller( $this->params );
 
             } catch( \Exception $e ) {
                 require_once SERVICE . 'ErrorHandler.php';
