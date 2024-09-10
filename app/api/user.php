@@ -15,12 +15,10 @@ class User extends \App\core\ControllerBase {
             $this->model = new \App\model\User;
 
             } catch( \Exception $e ) {
-                require_once SERVICE . 'ErrorHandler.php';
-                \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+                $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
                 return;
             } catch( \Error $er ) {
-                require_once SERVICE . 'ErrorHandler.php';
-                \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+                $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
                 return;
             }
 
@@ -28,12 +26,10 @@ class User extends \App\core\ControllerBase {
             $this->userService = new \App\service\User( $this->reqType );
 
         } catch( \Exception $e ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
             return;
         } catch( \Error $er ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
             return;
         }
 }
@@ -47,7 +43,6 @@ class User extends \App\core\ControllerBase {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
     }
-
 
 
     public function getUser() {
@@ -141,16 +136,22 @@ class User extends \App\core\ControllerBase {
             $jwt = parent::jwtEncode( $payload );
 
         } catch( \Exception $e ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
             return;
         } catch( \Error $er ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
             return;
         }
+
         header("HTTP/1.1 200 OK");
         header( 'Content-Type: text/html; charset=UTF-8');
            echo $jwt;
+    }
+
+
+    private function displayProblem( $msg, $file, $line ) {
+        require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( $msg, $file, $line );
+    
     } //func
 } //class

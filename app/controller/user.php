@@ -16,23 +16,20 @@ class User extends \App\core\ControllerBase {
         try {
             $this->model = new \App\model\User;
         } catch( \Exception $e ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
             return;
         } catch( \Error $er ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
             return;
         }
         try {
             $this->userService = new \App\service\User( $this->reqType );
+
         } catch( \Exception $e ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
             return;
         } catch( \Error $er ) {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+            $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
             return;
         }
 }
@@ -100,6 +97,11 @@ class User extends \App\core\ControllerBase {
            header('Location: ' . $origin, true, 301);
            exit();
         }
+    }
+
+    private function displayProblem( $msg, $file, $line ) {
+        require_once SERVICE . 'ErrorHandler.php';
+            \App\service\Call404( $msg, $file, $line );
     }
 
 }//class
