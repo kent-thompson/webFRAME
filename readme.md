@@ -98,6 +98,22 @@ Inside a controller mapped method use this technique:
 
 **Database:**  See sql directory for database schemas. See /app/core/Database to set up database connection, et cetera.
 
+.htaccess
+----
+
+Options -Indexes  
+RewriteEngine On  
+RewriteCond %{HTTP_USER_AGENT} ^pycurl [NC,OR]  
+RewriteCond %{HTTP_USER_AGENT} ^Wget [NC]  
+RewriteCond %{HTTPS} off  
+RewriteRule ^(.*)$ https://YOUR_WEB_ADDRESS.COM/$1 [L, R=301]  
+
+RewriteBase /  
+RewriteCond %{REQUEST_FILENAME} !-f  
+RewriteCond %{REQUEST_FILENAME} !-d  
+RewriteCond $1 !^(index\.php|public|css|js|robots\.txt)  
+RewriteRule ^(.*)$ index.php/params=$1 [L,QSA]  
+
 Added
 ----
 
@@ -109,7 +125,7 @@ Whatever the Problem Domains dictates. It can spring from here.
 Known Issues
 ----
 
-Finish full coverage of new error handler code
-Finish LegalDocs examples.
+Finish full coverage of new error handler code  
+Finish LegalDocs examples
 
 https://github.com/kent-thompson/test.git
