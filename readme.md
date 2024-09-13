@@ -41,7 +41,7 @@ kentthompson.org/user/getUser
 + Actions are mapped to a method / function in the controller class.
 + Automaticaly supports a Default, Home Controller Design when used with only a website name and / or just a page name request.
 
-----
+---
 
 REST / RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
 **Website name  / api / controller / action**;
@@ -52,11 +52,14 @@ kentthompson.org/api/user/getUser
 Actions are mapped to a method / function in the controller class.  
 
 Requirements
-------------
-+ SQL Database  (NoSQL DB could easily be integrated)  
+----
 + PHP 8.x
 
-Recommended:
++ Optional:
+SQL or NoSQL Database  
+  PDO Interface is provided, any supporting DB will work, setup in core/Database and app/Model
+
++ Recommended:
 Datatables.js,
 jQuery.js
 
@@ -123,7 +126,9 @@ Whatever the Problem Domains dictates. It can spring from here.
 Known Issues
 ----
 
-Finish full coverage of new error handler code  
+Finish full coverage of new error handler code
+
+---
 
 Copyright (c) 2024 Kent Thompson, All rights reserved.  
 https://github.com/kent-thompson/webMVC.git
