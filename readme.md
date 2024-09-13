@@ -26,7 +26,7 @@ Features
 Some pages in this example are placeholders to show above behavior.  
 **Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all tags are correctly matched.
 
-Copyright (c) 2024 Kent Thompson, All rights reserved. All source code and IP.
+Copyright (c) 2024 Kent Thompson, All rights reserved.
 
 "Engine" is located at /app/core/Application.
 
@@ -126,6 +126,5 @@ Known Issues
 ----
 
 Finish full coverage of new error handler code  
-Finish LegalDocs examples
 
-https://github.com/kent-thompson/test.git
+https://github.com/kent-thompson/webMVC.git
