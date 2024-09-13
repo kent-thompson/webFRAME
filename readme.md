@@ -72,7 +72,7 @@ If Authorization is desired, in Server side controllers, use '**parent::AuthUI()
 Before Login:
 + GET and POST do not use authorization becuase a JsonWebToken (JWT) has not been issued. This is by design. Static pages, for example, usually do not need authorized as well, but can be if desired, with one line of code.
 
-Login:
+Login: (Authentication)
 + One has to register as a user first, of course.
 + Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in  client side SessionStorage, (/app/views/login). This has to be done.
 
