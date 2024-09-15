@@ -14,23 +14,25 @@ class User extends \App\core\ControllerBase {
         try {
             $this->model = new \App\model\User;
 
-            } catch( \Exception $e ) {
-                $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
-                return;
-            } catch( \Error $er ) {
-                $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
-                return;
-            }
+        } catch( \Exception $e ) {
+            $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
+            return false;
 
+        } catch( \Error $er ) {
+            $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+            return false;
+        }
+        
         try {
             $this->userService = new \App\service\User( $this->reqType );
 
         } catch( \Exception $e ) {
             $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__);
-            return;
+            return false;
+
         } catch( \Error $er ) {
             $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
-            return;
+            return false;
         }
 }
 
@@ -150,8 +152,8 @@ class User extends \App\core\ControllerBase {
 
 
     private function displayProblem( $msg, $file, $line ) {
+
         require_once SERVICE . 'ErrorHandler.php';
             \App\service\Call404( $msg, $file, $line );
-    
     } //func
 } //class

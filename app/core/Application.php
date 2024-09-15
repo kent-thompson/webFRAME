@@ -8,11 +8,13 @@ class Application {
     protected $controllerPath;      // file path to file
     // protected $action;           // = 'index';
     protected $params = [];
-            
+
+
     public function __construct() {
         $this->setReqMethod();
         $this->parseURL();
-        $this->invoke();
+        $this->invokeClass();
+        $this->invokeMethod();
     }
 
 
@@ -72,9 +74,8 @@ class Application {
     }
 
 
-    protected function invoke() {
-        global $InstanceMethod;
-
+    protected function invokeClass() {
+ 
         // auto class loader from file path, controller class gets instantiated and action / function invoked
         if( file_exists($this->controllerPath) ) {
             try {
@@ -82,43 +83,51 @@ class Application {
                 $this->controller = new $this->controller( $this->params );
 
             } catch( \Exception $e ) {
-                require_once SERVICE . 'ErrorHandler.php';
-                \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
-                return;
+                $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+                $GLOBALS['isError'] = true;
+                $isErrror = true;
+                return false;
             } catch( \Error $er ) {
-                require_once SERVICE . 'ErrorHandler.php';
-                \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
-                return;
+                $isErrror = true;                
+                $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+                return false;
             }
         } else {
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( 'Error: Controller ' . $this->controller . ' Missing', __FILE__, __LINE__ );
-            return;
+            $this->displayProblem( 'Error: Controller ' . $this->controller . ' Missing', __FILE__, __LINE__ );
+             return false;
         }
+    }
 
+
+    protected function invokeMethod() {
+        global $InstanceMethod;
         // function / "action" called
+
         if( method_exists($this->controller, $InstanceMethod) ) {
             try {
                 // invoke an instance method
                 // call_user_func_array( [$this->controller, $this->action], $this->params ); DO NOT become Emotionally invested in your code. This allows discussion and rapid change.
                 // $instanceMethod = $this->action; ugh...
 
-                $this->controller->$InstanceMethod( $this->params );    // The MAGIC
+                    $this->controller->$InstanceMethod( $this->params );    // The MAGIC
 
             } catch( \Exception $e ) {
-                require_once SERVICE . 'ErrorHandler.php';
-                \App\service\Call404( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
-                return;
+                $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
+                return false;
             } catch( \Error $er ) {
-                require_once SERVICE . 'ErrorHandler.php';
-                \App\service\Call404( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
-                return;
+                $this->displayProblem( 'Error: ' . $er->getMessage(), __FILE__, __LINE__ );
+                return false;
             }
         } else {
             $classObj = new \ReflectionClass( $this->controller );
-            $data = 'Error: ' . $classObj->getName() . '\\' . $InstanceMethod . ' Missing';
-            require_once SERVICE . 'ErrorHandler.php';
-            \App\service\Call404( $data, __FILE__, __LINE__ );
+            $this->displayProblem( 'Error: ' . $classObj->getName() . '\\' . $InstanceMethod . ' Missing',  __FILE__, __LINE__ );
+            return false;
         }
+        return true;
+    }
+
+    public function displayProblem( $msg, $file, $line ) {
+        require_once SERVICE . 'ErrorHandler.php';
+        \App\service\Call404( $msg, $file, $line );
     }
 }
