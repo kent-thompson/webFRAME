@@ -84,8 +84,6 @@ class Application {
 
             } catch( \Exception $e ) {
                 $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
-                $GLOBALS['isError'] = true;
-                $isErrror = true;
                 return false;
             } catch( \Error $er ) {
                 $isErrror = true;                

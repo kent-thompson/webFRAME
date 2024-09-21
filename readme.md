@@ -61,7 +61,8 @@ SQL or NoSQL Database
 
 + Recommended:
 Datatables.js,
-jQuery.js
+jQuery.js,
+Bootstrap
 
 Authorization (as opposed to Authentication)
 ----
