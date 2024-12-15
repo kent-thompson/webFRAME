@@ -26,7 +26,9 @@ Features
 Some pages in this example are placeholders to show above behavior.  
 **Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all tags are correctly matched.
 
-"Engine" is located at /app/core/Application.
+"Engine" is located at /app/core/Application.  
+**Engine Performance**  
+Care was taken to ensure the current instance request / response "execution path" goes through Exactly ONE Path each time. IOW, each variable is set or read, exactly ONCE and no more. It is the most effcient possible. 
 
 **Userlist** shows "mini-SPA" design and typical CRUD API behavior.
 
@@ -57,7 +59,7 @@ Requirements
 
 + Optional:
 SQL or NoSQL Database  
-  PDO Interface is provided, any supporting DB will work, setup in core/Database and app/Model
+  PDO Interface is provided, any supporting DB will work, setup in app/core/Database and app/model
 
 + Recommended:
 Datatables.js,

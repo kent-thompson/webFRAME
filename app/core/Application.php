@@ -1,7 +1,7 @@
 <?php
 namespace App\core;
 
-$InstanceMethod;
+$gAction;
 
 class Application {
     protected $controller;          // current controller object
@@ -33,7 +33,7 @@ class Application {
 
 
     protected function parseURL() {
-        global $InstanceMethod;
+        global $gAction;
         // controller and action paths and names are set
 
         $request = trim( $_SERVER['REQUEST_URI'], '/' );
@@ -42,7 +42,7 @@ class Application {
             $this->controllerPath = CONTROLLER . 'home.php';
             $this->controller = 'App\\controller\\home';
             // $this->action = 'index';
-            $InstanceMethod = 'index';
+            $gAction = 'index';
             return;
         }
 
@@ -53,7 +53,7 @@ class Application {
             $this->controllerPath = CONTROLLER . 'home.php';
             $this->controller = 'App\\controller\\home';
             // $this->action = $urlPath[0];
-            $InstanceMethod = $urlPath[0];
+            $gAction = $urlPath[0];
             return;
         }
 
@@ -63,12 +63,12 @@ class Application {
                 $this->controllerPath = API . $urlPath[1] . '.php'; // now current controller PATH
                 $this->controller = "App\\api\\" . $urlPath[1];     // now current controller CLASS
                 // $this->action = $urlPath[2];                     // method / function
-                $InstanceMethod = $urlPath[2];
+                $gAction = $urlPath[2];
             } else {
                 $this->controllerPath = CONTROLLER . $urlPath[0] . '.php';  // now current controller
                 $this->controller = "App\\controller\\" . $urlPath[0];      // now current controller CLASS
                 // $this->action = $urlPath[1];                             // method / function
-                $InstanceMethod = $urlPath[1];
+                $gAction = $urlPath[1];
             }
         }
     }
@@ -98,16 +98,16 @@ class Application {
 
 
     protected function invokeMethod() {
-        global $InstanceMethod;
+        global $gAction;
         // function / "action" called
 
-        if( method_exists($this->controller, $InstanceMethod) ) {
+        if( method_exists($this->controller, $gAction) ) {
             try {
                 // invoke an instance method
                 // call_user_func_array( [$this->controller, $this->action], $this->params ); DO NOT become Emotionally invested in your code. This allows discussion and rapid change.
-                // $instanceMethod = $this->action; ugh...
+                // $gAction = $this->action; ugh...
 
-                    $this->controller->$InstanceMethod( $this->params );    // The MAGIC
+                    $this->controller->$gAction( $this->params );    // The MAGIC
 
             } catch( \Exception $e ) {
                 $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
@@ -118,7 +118,7 @@ class Application {
             }
         } else {
             $classObj = new \ReflectionClass( $this->controller );
-            $this->displayProblem( 'Error: ' . $classObj->getName() . '\\' . $InstanceMethod . ' Missing',  __FILE__, __LINE__ );
+            $this->displayProblem( 'Error: ' . $classObj->getName() . '\\' . $gAction . ' Missing',  __FILE__, __LINE__ );
             return false;
         }
         return true;
