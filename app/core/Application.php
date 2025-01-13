@@ -1,7 +1,7 @@
 <?php
 namespace App\core;
 
-$gAction;
+$gAction;                           // set exactly ONCE per request. forced to be global by function call limitation
 
 class Application {
     protected $controller;          // current controller object
@@ -75,8 +75,7 @@ class Application {
 
 
     protected function invokeClass() {
- 
-        // auto class loader from file path, controller class gets instantiated and action / function invoked
+         // auto class loader from file path, controller class gets instantiated and action / function invoked
         if( file_exists($this->controllerPath) ) {
             try {
                 require_once $this->controllerPath;
@@ -100,14 +99,13 @@ class Application {
     protected function invokeMethod() {
         global $gAction;
         // function / "action" called
-
         if( method_exists($this->controller, $gAction) ) {
             try {
-                // invoke an instance method
+                // invoke an instance method. below done the 'old' way, commented out
                 // call_user_func_array( [$this->controller, $this->action], $this->params ); DO NOT become Emotionally invested in your code. This allows discussion and rapid change.
-                // $gAction = $this->action; ugh...
+                // $gAction = $this->action; ugh... not on every request
 
-                    $this->controller->$gAction( $this->params );    // The MAGIC
+                    $this->controller->$gAction( $this->params );    // The MAGIC - extreamly fast
 
             } catch( \Exception $e ) {
                 $this->displayProblem( 'Exception: ' . $e->getMessage(), __FILE__, __LINE__ );
