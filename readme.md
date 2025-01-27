@@ -1,4 +1,4 @@
-A High-Performance WebEngine / Framework for Web Applications
+webFRAME: A High-Performance MVC/S WebEngine / Framework for Web Applications
 ------------
 Features
 + Convention Over Configuration
@@ -26,7 +26,7 @@ Features
 Some pages in this example are placeholders to show above behavior.  
 **Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all tags are correctly matched.
 
-"Engine" is located at /app/core/Application.  
+The "Engine" is located at /app/core/Application.  
 **Engine Performance**  
 Care was taken to ensure the current instance request / response "execution path" goes through Exactly ONE Path each time. IOW, each variable is set or read, exactly ONCE and no more. It is the most effcient possible. 
 
@@ -66,14 +66,18 @@ Datatables.js,
 jQuery.js,
 Bootstrap
 
-Authorization (as opposed to Authentication)
+Authentication and Authorization
 ----
+Built in behavior located in a Base Class called ControllerBase.php. Controllers should inherit (extends) ControllerBase.php located in app/core/.  
+JsonWebTokens are used for these features.
+
+Authorization (as opposed to Authentication)
 It is not needlessly "enforced."  
 If Authorization is desired, in Server side controllers, use '**parent::AuthUI()**' for webpages and '**parent::AuthApi()**' for API calls.  
  See /app/controller/home and app/api/user for examples.
 
-Before Login:
-+ GET and POST do not use authorization becuase a JsonWebToken (JWT) has not been issued. This is by design. Static pages, for example, usually do not need authorized as well, but can be if desired, with one line of code.
+Authentication Before Login:
++ GET and POST do not use Authentication or Authorization becuase a JsonWebToken (JWT) has not been issued. This is by design. Static pages, for example, usually do not need authorized as well, but can be if desired, with one line of code.
 
 Login: (Authentication)
 + One has to register as a user first, of course.
