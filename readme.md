@@ -21,7 +21,8 @@ Features
 + Multiple databases can be supported
 + Easily Extensible
 + JsonWebTokens Provide Excellent, Distributed Security Without the Need for Sessions, Cookies and Mulitple Database Lookups
-+ Easy examples provided. More...
++ Easy examples provided. More...  
+------------
 
 Some pages in this example are placeholders to show above behavior.  
 **Notice:** "*Partial Views*" and logic are used to accommodate real-time UI Composition following DRY principles. Thus, the online github code viewer will occasionally show html tags in red, indicating an error? THERE IS NO ERROR. Upon loading the full code at run-time, all tags are correctly matched.
@@ -43,7 +44,7 @@ kentthompson.org/user/getUser
 + Actions are mapped to a method / function in the controller class.
 + Automaticaly supports a Default, Home Controller Design when used with only a website name and / or just a page name request.
 
----
+------------
 
 REST / RESTful AJAX based API path scheme.  API (api) indicates use of the API controllers and JSON return type.  
 **Website name  / api / controller / action**;
@@ -68,10 +69,12 @@ Bootstrap
 
 Authentication and Authorization
 ----
-Built in behavior located in a Base Class called ControllerBase.php. Controllers should inherit (extends) ControllerBase.php located in app/core/.  
-JsonWebTokens are used for these features.
+Built in behavior located in a Base Class called ControllerBase.php. Controllers should inherit (extends) ControllerBase.php located in app/core/.
 
-Authorization (as opposed to Authentication)
+Authentication: Handled by the PHP Password Hashing Functions
+
+Authorization (as opposed to Authentication)  
+JsonWebTokens are used for these features.  
 It is not needlessly "enforced."  
 If Authorization is desired, in Server side controllers, use '**parent::AuthUI()**' for webpages and '**parent::AuthApi()**' for API calls.  
  See /app/controller/home and app/api/user for examples.
@@ -81,9 +84,11 @@ Authentication Before Login:
 
 Login: (Authentication)
 + One has to register as a user first, of course.
++ Once Authenticated (logged in) a JsonWebToken is issued.
 + Logging in (/app/api/user/login) shows how JWTs are initially sent and placed in  client side SessionStorage, (/app/views/login). This has to be done.
 
 After Login:
++ The presence of the JWT indicates to the engine that the user is "logged in."
 + A JasonWebToken (JWT) is passed to the server for Authrorization for each request, as required.
 + GET and POST requests should send the client side stored JWT, and the Engine expects, a JWT, if authorization is desired.
 
