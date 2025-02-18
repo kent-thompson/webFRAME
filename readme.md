@@ -1,4 +1,4 @@
-webFRAME: A High-Performance MVC/S WebEngine / Framework for Web Applications
+webENGINE: A High-Performance MVC/S WebEngine / 'Framework' for Web Applications
 ------------
 Features
 + Convention Over Configuration
